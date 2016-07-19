@@ -1,0 +1,874 @@
+There is a problem forking this lesson.
+All of the files are empty/blank and the images are 0 bytes and will not load.
+I'm unable to complete the lesson as a result of this.This page is not complete-able in chrome because none of the potential answers to question 3 render.I think that there should be easier access to the Learn IDE. It should be a prominent link on a menu or on each page. The link to open each code challenge should lead to a link to download the IDE if it is not already on the device.
+
+My laptop died and I wanted to access the course on my desktop, but it took a long time for me to figure out exactly where the Learn IDE was so I could continue working on the course.
+
+You really want this to be seamless and device agnostic so That one can easily pickup on the lesson regardless of the device they use.Is it possible to use the Learn IDE on more than one device?
+Some people have multiple devices like a laptop and a desktop or a home computer and a work computer. So It would be great if You could use the Learn IDE on multiple devices. Or perhaps make it entirely cloudbased without the need of a download.I have completed the directions for the lab "Your First NSLog" and I am trying to submit a pull request, but git hub is telling me that the original fork is identical to mine. This is even though I made the changes and commited them. I have tried to reset the code and commit again, but it doesn't work
+Good evening, 
+
+I'm wondering if there is a way to start the lesson over, I was sent the files to fix via Git, but Learn was not connecting the files under the repository. I received the files two days after beginning to attempt the lab. Is there anyway I can start the lesson over and re-fork?
+
+Best,
+Vivian This pull request has been automatically created by learn.co. This lab is about __"Rails generators"__ but the README contains notes about __"Displaying Associations Rails"__. I noticed this because I looked up a lab I had completed and it looked totally different. Compare my [fork](https://github.com/azemoh/rails-generators-readme-v-000) from the previous day. The changes happens on this [commit](https://github.com/learn-co-curriculum/rails-generators-readme/commit/027d6ea239256ac9ff5ae147d9f2c4e2517517d2).I'm able to see that I'm passing all tests when I'm running learn -b. However, when I run learn, Im failing all tests and its reading as failed local tests when I push my code to github.  Im wondering if it is my code that's broken or not.  Thanks I keep getting a firefox issue when i run the tests. My code seems to be working as the lab wants it to function but the tests done pass. Slides linked in resource section have old Flatiron School logo.This lesson, even though it is complete and finished, properly, does not show up as finished under my profile. It says that I have completed 65/66 lessons in the HTML / CSS section, but I have completed and passed them all, but this lab is still being buggy - before the tests would not run and pass due to an error on the back-end, and then when that was fixed and the tests passed, it still shows as incomplete, even though when I go to the lab, it is marked as forked, submitted & passed, and finished.
+
+Will this be fixed?The "Run Local Test" bubble remains grey even after passing the NItrous tests. I've pushed a passing copy for the mean time.They should be updated appropriately. @matbalez @frahman5 @kvignali This may be particular to my environment but I'll try to document what I did the best I can. I was on ask a question for more than 3hrs with Seema and Charles, to no avail. This error occurred in the point of the readme where we are to "authorize" our app to access our account. I never saw any message asking for approval, just this error :
+
+```
+Connecting failed
+This app has a configuration problem and was unable to connect to your Foursquare account.
+
+Cause of error: redirect_uri_mismatch
+
+Go to the app gallery
+```
+No one has been able to reproduce though.I properly set and checked ENV['FOURSQUARE_CLIENT_ID'] and ENV['FOURSQUARE_SECRET'] for two separate apps.
+
+The Foursquare web addresses (the redirect url matches, see below):
+```
+WEB ADDRESSES
+Download / welcome page url
+http://localhost:3000/
+Your privacy policy url
+http://localhost:3000/
+Redirect URI(s)
+http://localhost:3000/auth
+```
+
+But here's the crazy part. When I ran (with my correct client_id inserted):
+```
+curl https://foursquare.com/oauth2/authenticate?client_id=< client_id >&response_type=code&redirect_uri=http://localhost:3000/auth
+```
+the response:
+```
+</style>
+</head>
+<body>
+  <div id="container">
+    <img class="wordmark" src="/wordmark.png" />
+    <h1>We couldn't find the page you're looking for.</h1>
+    <h2>Search for great places nearby:</h2>
+    <form action="https://foursquare.com/explore" method="GET">
+      <input type="text" class="formStyle" name="q">
+      <button name="submit" class="greenButton" type="submit">Search</button>
+    </form>
+  </div>
+  <img class="logomark" width="40" src="/logomark.png">
+  <script src="https://www.google-analytics.com/ga.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker('UA-2322480-5');
+      pageTracker._trackPageview('/404');
+    } catch(err) {}
+  </script>
+</body>
+</html>
+```
+Everyone is stumped. Any insights would be great.
+
+Another test:
+```
+[17:40:36] (master) web-auth-readme-v-000
+// ♥ cat /etc/hosts
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1    localhost
+255.255.255.255    broadcasthost
+::1             localhost 
+```
+
+ Here is some of the code:
+
+application_controller.rb:
+```
+class ApplicationController < ActionController::Base
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+  before_action :authenticate_user
+
+
+  private
+
+  def authenticate_user
+    client_id = ENV['FOURSQUARE_CLIENT_ID']
+    redirect_uri = "http://localhost:3000/auth"
+    foursquare_url = "https://foursquare.com/oauth2/authenticate?client_id=#{client_id}&response_type=code&redirect_url=#{redirect_uri}"
+    redirect_to foursquare_url unless logged_in?
+  end
+
+  def logged_in?
+    !!session[:token]
+  end
+end
+```
+sessions_controller.rb:
+```
+class SessionsController < ApplicationController
+  skip_before_action :authenticate_user
+ 
+  def create
+    resp = Faraday.get("https://foursquare.com/oauth2/access_token") do |req|
+      req.params['client_id'] = ENV['FOURSQUARE_CLIENT_ID']
+      req.params['client_secret'] = ENV['FOURSQUARE_SECRET']
+      req.params['grant_type'] = 'authorization_code'
+      req.params['redirect_uri'] = "http://localhost:3000/auth"
+      req.params['code'] = params[:code]
+    end
+   
+    body = JSON.parse(resp.body)
+    session[:token] = body["access_token"]
+    redirect_to root_path
+  end
+end
+```
+routes.rb
+```
+Rails.application.routes.draw do
+  root 'searches#search'
+  get '/search', to: 'searches#search'
+  post '/search', to: 'searches#foursquare'
+  get '/auth', to: 'sessions#create'
+  
+end
+```
+gemfile
+```
+.
+.
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  gem 'dotenv-rails'
+end
+.
+.
+```Line 56 of tests/acceptance/routing-test.js expects the current path to equal 'products.index' when I believe we were only instructed to create a 'products' pathSee attached screenshot.
+![learn_bug_push_notification_missing_characters](https://cloud.githubusercontent.com/assets/2646968/12860476/b79a9fee-cc2a-11e5-9769-8514d569519a.png)
+This lab is cloning the cd/first branch of this repository, instead of the master. I am also unable to get the the learn.co site to accept my fork and my pull request, so that my lights turn green.Ran into a minor bug: When submitting assignments through the quiz, the POST requests receive 500 responses. Unfortunately I wasn't able to capture much additional error info since I didn't have my network tab open and everything works great when the page is refreshed.See screenshot.
+![screen shot 2016-02-01 at 10 54 53 am](https://cloud.githubusercontent.com/assets/2646968/12722314/52236fc0-c8d2-11e5-84d5-00c4046e90b8.png)
+Hey,
+I followed the lesson, finished and submitted it but the green lights on the learn site never came on. I don't want to move on without them coming on and saying I finished the lesson. In the terminal it says that I finished the lesson. I hope you can help!
+
+Thanks, 
+
+BrittonLesson lists itself as unpublished. It cannot be forked but not opened. 
+
+It says WARNING: You are attempting to open a lesson that is beyond your current lesson.
+Are you sure you want to continue? [Yn]: 
+
+It doesnt make sense but even if I say Y it bring me to another screen that doesnt have a lesson. This should be looked at.
+
+Thank you The code that you fork this lab is the exact same as Code Along Exercise II. The contact page is blank, for example that’s one of the tasks Code Along II completes; furthermore, one can see that Jonathan’s real_estate_listing.html is more filled out than was covered in the previous videos. He has sections or Condos, Townhomes, Co-ops, and Featured Listings.
+
+I would suggest updating the code so when students are cloning this lab there is no need to play catch up. Someone who is detail-oriented like myself really gets caught up in these changes and I have a harder time focusing on the lab.Hello, whenever I try opening a lab via Nitrous, I do not see any content in the labs folder.  This is for all the labs, not just the square_array assignment in particular.  I did not have this issue while in the Intro to Ruby track.  
+
+Spencer tried assisting me via the Ask a Question, but we weren't able to figure it out in time as I had to log off. 
+
+Thanks
+
+The open button is bot active on the first lab page.Im trying to ask a question on learn. Im not receiving the option to input my inquiry. the open button is to working. The links for the tests pass check and pull request check on the lesson page are incorrect. Despite passing all the tests and submitting the pull request on nitrous the lights don't trigger (tried multiple times, restarting, waiting two days, ect..). Another student also had the same issue and I think it might have something to do with this: https://github.com/learn-co-curriculum/advanced-hashes-hashketball/issues/15.
+Doing this correctly, submitted several times, but still a BUILD FAILURE. Keep getting no specs in file. Any ideas? I've since moved on but would like to see it correct. Thanks.While working on the Scraper project I noticed the rspec test for `#scrape_index_page` uses an `index_url` variable set to http://127.0.0.1:4000/fixtures/student-site/index.html, which results in a page not found (./spec/scraper_spec.rb:26). The index page can, however, be brought up by using http://127.0.0.1:4000/. 
+
+Is this an error within the rspec test? Should the `index_url` variable be set to http://127.0.0.1:4000/? When changed, the test passes for scrape_index_page class method.
+
+Similar issue for the `#scrape_profile_page` test.I want to work as a team but it is designating me as working solo. Please help me change thisi reached the first lab lesson, but i find that the "open" tab is greyed and cannot be clicked to open the CLI in introus. when i manually open nitrous CLI IDE, i can't find the lesson folder under the lab folder, and i keep getting message "You don't appear to be in a Learn lesson's directory. Please cd to an appropriate directory and try again."Needs to be toggledHello!
+This one did not give us an option to clone the repo from the Nitrous button on Learn. I was able to do so through github, but it could be confusing for others who come along expecting that Nitrous button. Also, the instructions say: "Open up this repo in your text editor to get started. Follow along with the instructions below to get your tests passing."
+There is no "tests passing" button on this lab in Learn -- it presents itself as just a readme.
+
+SVI'm trying to do as the lab requests by hitting the "open" option and it is faded in and I can't even begin and the lab or go aheadI no longer see where I can report a bug with this update to Learn.co, so this is where I'll file the grievance. Here's the issue I've forked this lab and I am not getting credit for it. Check it out: 
+<img width="553" alt="screen shot 2015-12-27 at 2 41 46 pm" src="https://cloud.githubusercontent.com/assets/14082893/12012430/fb349568-aca7-11e5-826a-7a39b07a5078.png">
+<img width="286" alt="screen shot 2015-12-27 at 2 38 19 pm" src="https://cloud.githubusercontent.com/assets/14082893/12012419/a29415c8-aca7-11e5-9ebe-9346e45e907d.png">
+<img width="1075" alt="screen shot 2015-12-27 at 2 39 01 pm" src="https://cloud.githubusercontent.com/assets/14082893/12012420/a68d12a6-aca7-11e5-8153-9e527fc89bd9.png">
+
+I'd like my green bubble of accomplishment please.
+
+Nothing has worked properly since i have started using this website. I really wanted to start learning coding but from one mess to another it seems. And now this help staff don't want to help which i can't blame them because of how much i have to keep talking to them. Hasn't gave me much faith towards coding unfortunately :/Hi, github username farmerbot24 is unable to open this lab. It appears greyed out, even after following the steps here: https://github.com/flatiron-labs/learn-support/blob/master/learn_expert_nitrous_support.md
+
+He says he has been using Windows and switching to ubuntu. Question is open until we have a solution for him: https://learn.co/tracks/intro-to-ruby-development/ruby-basics/debugging/intro-to-irb?batch_id=294&question_uid=q-86f762bd-e25e-452d-9396-a0ec918d3879&track_id=12307It looks like you have no changes to commit. Will still try updating your submission...
+Pushing changes to GitHub...
+/Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/git-1.2.9.1/lib/git/lib.rb:917:in `command': git '--git-dir=/Users/dominicfaulring/Development/code/first-lab-ruby-learn-cli-osx-intro-to-learn/.git' '--work-tree=/Users/dominicfaulring/Development/code/first-lab-ruby-learn-cli-osx-intro-to-learn' push 'origin' 'master'  2>&1:ERROR: Permission to dfaulring/first-lab-ruby-learn-cli-osx-intro-to-learn.git denied to dominicfaulring. (Git::GitExecuteError)
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/git-1.2.9.1/lib/git/lib.rb:727:in `push'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/git-1.2.9.1/lib/git/base.rb:329:in `push'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/learn-submit-1.1.7/lib/learn_submit/submission/git_interactor.rb:123:in `block in push!'
+    from /Users/dominicfaulring/.rvm/rubies/ruby-2.2.3/lib/ruby/2.2.0/timeout.rb:88:in `block in timeout'
+    from /Users/dominicfaulring/.rvm/rubies/ruby-2.2.3/lib/ruby/2.2.0/timeout.rb:32:in `block in catch'
+    from /Users/dominicfaulring/.rvm/rubies/ruby-2.2.3/lib/ruby/2.2.0/timeout.rb:32:in `catch'
+    from /Users/dominicfaulring/.rvm/rubies/ruby-2.2.3/lib/ruby/2.2.0/timeout.rb:32:in `catch'
+    from /Users/dominicfaulring/.rvm/rubies/ruby-2.2.3/lib/ruby/2.2.0/timeout.rb:103:in `timeout'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/learn-submit-1.1.7/lib/learn_submit/submission/git_interactor.rb:122:in `push!'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/learn-submit-1.1.7/lib/learn_submit/submission/git_interactor.rb:23:in `commit_and_push'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/learn-submit-1.1.7/lib/learn_submit/submission.rb:46:in `commit_and_push!'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/learn-submit-1.1.7/lib/learn_submit/submission.rb:22:in `create'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/learn-submit-1.1.7/lib/learn_submit/submission.rb:6:in `create'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/gems/learn-submit-1.1.7/bin/learn-submit:15:in `<top (required)>'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/bin/learn-submit:23:in `load'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/bin/learn-submit:23:in `<main>'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/bin/ruby_executable_hooks:15:in `eval'
+    from /Users/dominicfaulring/.rvm/gems/ruby-2.2.3/bin/ruby_executable_hooks:15:in `<main>'I am having issues pulling a request from this lesson...When opening lab from learn via Nitrous button, lab may be cloned with incorrect name (SQL-bear-organizer instead of SQL-bear-organizer-lab)I downloaded PhantomJS but I still get the message "You must have PhantomJS installed: http://phantomjs.org/download.html".The green light for having run local tests, won't light up.    
+I did the lab 3 times, getting all tests green, using Learn and then Learn Submit.  
+
+I also did it using clone/fork/add/push method.   
+
+I've created 2 pull requests, but the "local tests button" on the Learn page is still not turning green.     I'll move to the next lesson for now.  from [this issue](https://github.com/learn-co-students/sinatra-password-security-web-1115/issues/4) raised by student in student repo: I know other people have completed this lab without this problem, so it's possible I did something wrong, but wanted to raise this issue. Upon initial cloning and trying to run 
+from this issue raised by a student in student repo:
+learn I received an error and was told to run rake db:migrate SINATRA_ENV=test. However, when I did so I received this error message:
+
+SQLite3::SQLException: table "users" already exists: CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar, "password_digest" varchar) /Users/kaylee/.rvm/gems/ruby-2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `initialize'
+
+(full stack trace not included as it was very long)
+
+This happened even after deleting the repo and forking/cloning again, and no matter with order I ran rake db:migrate and rake db:migrate SINATRA_ENV=test in. The problem was eventually solved by deleting the following files: db/schema.rb and db/test.sqlite before running migrations.
+
+Also, am not sure if the lab was intended to be just a codealong or if this was intentional, but several tests do not pass due to capybara not being able to find elements just as an FYI.<img width="415" alt="screen shot 2016-01-05 at 2 32 54 pm" src="https://cloud.githubusercontent.com/assets/14326883/12116317/45507f8c-b3b9-11e5-96e6-e73424dad9cf.png">
+
+Despite the message above, no fork was made (that I can see).
+
+At the time of writing the 'View on Github' gives 404:
+https://github.com/learn-co-students/rails-restful-index-action-lab-v-000
+
+'Raise an issue' links here, to the curriculum version.
+
+Lab being referenced:
+https://learn.co/tracks/full-stack-web-development/rails/intro-to-rest/restful-action-index-labAll three instructions are numbered 1.It would be cool if the links in the dropdown menu were actually links to the pages they refer to, so you could right-click on an old lesson and open it in a new tab (trying to do this just opens a new tab with the same lesson you're already in). Same with search results.The steps to install karma are not listed on this lab, and we are not taught how to install them until the testing controllers lab. Maybe add the instructions:
+
+$ sudo npm install -g karma-cli
+$ npm install karma --save-dev
+$ npm install jasmine-core --save-dev
+$ npm install karma-spec-reporter --save-dev
+$ npm install karma-jasmine --save-dev
+$ npm install karma-chrome-launcher --save-dev
+
+so that students know how to get the test suite to function.The repo is missing the rack-test gem. Students will need to run `gem install rack-test` in order for learn commands to execute.Keyword arguments confused students here - does that topic need to be introduced here? This lab is very challenging in general, and that's an extra layer of confusion for them. We should remove keyword arguments from this lab. I keep having strange problems with my environment, but luckily this one was with the lab. 
+
+js/jquery-2.1.1.min.js reads:
+
+```s/*! jQuery v2.1.1 | (c) 2005, 2014 jQuery....```
+
+You'll note there is a stray 's' there that causes all sorts of problems.The redirect link for the open button is not correct for the tttt-2-board-rb lab. I know there are some issues with SQLite and Gemfile on nitrous but I think if we're require a gem we should have a gemfile no?Have had a number of issues with this lab. Originally had a problem where I didn't have ruby 2.2.0 installed. This lab sets the ruby version as 2.2.0 in the Gemfile and .ruby-version files. Installing ruby 2.2.0 didn't end up solving the issue.
+
+I asked Learn support for help and they told me 2.2.3(the version I've been using all this time) should work fine for this lab.
+
+After deleting the ruby version in the Gemfile and .ruby-version to mimic past Rails labs, things appeared to work. See my commit here: https://github.com/alexbarron/model-class-methods-lab-v-000/commit/f6339f11b52e6ef5e0865b223eb0ac3eb1501724
+
+I ran 'rake db:migrate RAILS_ENV=test' and this ran fine. I ran the test suite and that ran fine.
+
+However, running the test suite a second time results in the following error:
+
+```
+♥ learn
+/Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/activerecord-4.2.0/lib/active_record/migration.rb:393:in `check_pending!':  (ActiveRecord::PendingMigrationError)
+
+Migrations are pending. To resolve this issue, run:
+
+    bin/rake db:migrate RAILS_ENV=test
+
+    from /Users/alexbarron/Development/code/model-class-methods-lab-v-000/spec/spec_helper.rb:13:in `<top (required)>'
+    from /Users/alexbarron/Development/code/model-class-methods-lab-v-000/spec/models/boat_spec.rb:1:in `require'
+    from /Users/alexbarron/Development/code/model-class-methods-lab-v-000/spec/models/boat_spec.rb:1:in `<top (required)>'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/configuration.rb:1226:in `load'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/configuration.rb:1226:in `block in load_spec_files'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/configuration.rb:1224:in `each'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/configuration.rb:1224:in `load_spec_files'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/runner.rb:97:in `setup'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/runner.rb:85:in `run'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/runner.rb:70:in `run'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/lib/rspec/core/runner.rb:38:in `invoke'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/rspec-core-3.2.1/exe/rspec:4:in `<top (required)>'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/bin/rspec:23:in `load'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/bin/rspec:23:in `<main>'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/bin/ruby_executable_hooks:15:in `eval'
+    from /Users/alexbarron/.rvm/gems/ruby-2.2.3/bin/ruby_executable_hooks:15:in `<main>'
+```
+
+
+Running rake:db migrate RAILS_ENV=test again results in this error(below is shortened version):
+
+```
+♥ rake db:migrate RAILS_ENV=test
+== 20140313192355 CreateBoats: migrating ======================================
+-- create_table(:boats)
+rake aborted!
+StandardError: An error has occurred, this and all later migrations canceled:
+
+SQLite3::SQLException: table "boats" already exists: CREATE TABLE "boats" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "length" integer, "captain_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) /Users/alexbarron/.rvm/gems/ruby-2.2.3/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `initialize'
+```
+
+Running rake db:reset RAILS_ENV=test allows me to migrate the test DB again, run the tests one more time, but then returns the same error as before.
+
+Ian from Learn.co chat support was able to reproduce this error and he recommended I raise this as an issue.The github settings image in the section "Configuring Git and GitHub" is broken (dead link I think)iframes load too slowly for screenshot test with green onion. Need to figure out how to delay screenshot till after iframe loads or calibrate the tolerance to not effect the outcome.Press Nitrous. It doesn't fork. Checked other lessons, they fork when you press Nitrous this doesn't.When I click "open", the lab open up in a new tab in Nitrous instead of locally. I opened up terminal on my own and successfully completed and submit the test, but it doesn't appear to be coming through on Learn.```
+Your Gemfile lists the gem rspec (>= 0) more than once.
+You should probably keep only one of them.
+While it's not a problem now, it could cause errors if you change the version of just one of them later.
+Your Gemfile lists the gem rack-test (>= 0) more than once.
+You should probably keep only one of them.
+While it's not a problem now, it could cause errors if you change the version of just one of them later.
+Your Gemfile lists the gem database_cleaner (>= 0) more than once.
+You should probably keep only one of them.
+While it's not a problem now, it could cause errors if you change the version of just one of them later.
+```
+
+## Original Gemfile
+```ruby
+
+
+gem 'activerecord', :require => 'active_record'
+gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
+
+gem 'sinatra'
+gem 'sqlite3'
+gem 'tux'
+gem 'pry'
+gem 'pry-nav'
+gem 'rake'
+gem 'rspec'
+gem 'rack-test'
+gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
+gem 'require_all'
+
+group :test do
+  gem 'rspec'
+  gem 'capybara'
+  gem 'rack-test'
+  gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
+end
+```
+
+## Suggested Edits
+Eliminated dupes and grouped testing gems into test block.
+
+```ruby
+source 'http://rubygems.org'
+
+gem 'activerecord', :require => 'active_record'
+gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
+
+gem 'sinatra'
+gem 'sqlite3'
+gem 'tux'
+gem 'rake'
+gem 'require_all'
+
+group :test do
+  gem 'rspec'
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'capybara'
+  gem 'rack-test'
+  gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
+end
+```
+
+Test run fine after edits so far.  still haven't completed lab just started.No test found in this lab so we always find "Your local tests failed." on the learn.co website.
+
+Advice: Maybe just let the test pass as soon as the build is successful :) learn
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:290: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/selector/simple_sequence.rb:91: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/selector/simple_sequence.rb:164: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/selector/simple_sequence.rb:207: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/selector/simple_sequence.rb:207: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/functions.rb:2422: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/functions.rb:2554: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/parser.rb:49: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/parser.rb:49: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/parser.rb:376: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/parser.rb:402: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/parser.rb:606: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/script/parser.rb:606: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/scss/parser.rb:512: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-3.4.21/lib/sass/scss/static_parser.rb:65: warning: literal in condition
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sass-rails-5.0.4/lib/sass/rails/helpers.rb:6: warning: method redefined; discarding old asset_data_url
+/home/nitrous/code/labs/rails-activerecord-model-rails-lab-v-000/.bundle/gems/sprockets-3.5.2/lib/sprockets/sass_processor.rb:253: warning: previous definition of asset_data_url was he
+reBadges and Schedules Lab - cannot fork the lab. Tried to do it via the "Open" button and Nitrous, tried with the "learn open" command via terminal, tried to manually fork and clone, and tried manually with git as well. The lab opens in Sublime Text, but cannot get the "Fork this Lab" to show as done. Cannot move on from lab without this. Fixes?![screenshot from 2016-03-21 18 39 18](https://cloud.githubusercontent.com/assets/17229217/13936461/3f6d2b30-ef94-11e5-911a-ab6a38b307d0.png)
+
+When running learn command, presented with a strange issue. 'Please install selenium standalone server'Hi again! Having issues running this test. I did the update to learn test but still received the following error: 
+
+Shana: angular-hello-world-lab-v-000
+♥ learn
+Installing missing dependency karma...
+npm ERR! tar.unpack untar error /Users/Shana/.npm/karma-cli/0.1.2/package.tgz
+npm ERR! Darwin 14.5.0
+npm ERR! argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "-g" "karma-cli"
+npm ERR! node v4.2.6
+npm ERR! npm  v2.14.12
+npm ERR! path /usr/local/lib/node_modules/karma-cli
+npm ERR! code EACCES
+npm ERR! errno -13
+npm ERR! syscall mkdir
+
+npm ERR! Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/karma-cli'
+npm ERR!     at Error (native)
+npm ERR!  { [Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules/karma-cli']
+npm ERR!   errno: -13,
+npm ERR!   code: 'EACCES',
+npm ERR!   syscall: 'mkdir',
+npm ERR!   path: '/usr/local/lib/node_modules/karma-cli',
+npm ERR!   fstream_type: 'Directory',
+npm ERR!   fstream_path: '/usr/local/lib/node_modules/karma-cli',
+npm ERR!   fstream_class: 'DirWriter',
+npm ERR!   fstream_stack: 
+npm ERR!    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:35:25',
+npm ERR!      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:47:53',
+npm ERR!      'FSReqWrap.oncomplete (fs.js:82:15)' ] }
+npm ERR! 
+npm ERR! Please try running this command again as root/Administrator.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /Users/Shana/Development/code/angular-hello-world-lab-v-000/npm-debug.log
+/Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/open3.rb:193:in `spawn': No such file or directory - karma (Errno::ENOENT)
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/open3.rb:193:in `popen_run'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/open3.rb:93:in `popen3'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/learn-test-2.1.1/lib/learn_test/strategies/karma.rb:56:in `run_karma'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/learn-test-2.1.1/lib/learn_test/strategies/karma.rb:18:in `run'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/learn-test-2.1.1/lib/learn_test/runner.rb:15:in `run'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/learn-test-2.1.1/bin/learn-test:56:in `<top (required)>'
+    from /Users/Shana/.rbenv/versions/2.2.2/bin/learn-test:23:in `load'
+    from /Users/Shana/.rbenv/versions/2.2.2/bin/learn-test:23:in `<main>'In the readme for this lab it states that we should create migrations to match the tables that are displayed. Also in /db/migrate/01_create_landmarks.rb  there are instructions to "Write CreateLandmarks migration here"
+
+however
+
+In /db/schema.rb we can see that the landmarks table has already been created prior to the start of the student beginning the lab. Also of note is that the table in schema.rb is not the same as the table represented in the readme .  It has datetime columns.Readme says it should default to "Ruby Programmer" but solution defaults to "Python Programmer" for this lesson. I have all of the tests succeeding but the local build light will not go green. I tried closing my browser and quitting the learn app but the issue persists. I did both learn to run program and learn submit to get it to pass.
+But ring for run program does not turn green.
+I can't get to the lesson after intro to learnThe links to Beyonce's stylesheets are no longer working. Beyonce.com has undergone a redesign so we should probably choose a different site to have students style. 
+
+We should probably include the stylesheets in this repo so that we don't have to depend on live links. Was given a banner message at the top (in red) that stated, "You do not have access to this lesson." 
+This didn't appear until I was accepted and paid for the program. Aside from that, everything seems to be working.LoginVC does nothing when login button is tapped. When I followed the codealong and tried to do a hard reset in the IDE, got the following.
+
+![screen shot 2016-06-06 at 11 57 39 am](https://cloud.githubusercontent.com/assets/1892150/15840389/909f20ac-2c17-11e6-8192-e1a1453b2067.png)
+
+@loganhasson @pletcher - The first question's fourth answer includes part of the text for the second question.
+
+![screen shot 2016-06-07 at 5 49 04 pm](https://cloud.githubusercontent.com/assets/19765134/15875868/26005e52-2cd8-11e6-8345-fdb61c0ea823.png)
+
+- The second question's fourth answer includes part of the text for the third question.
+
+![screen shot 2016-06-07 at 5 49 28 pm](https://cloud.githubusercontent.com/assets/19765134/15875887/3d4e461e-2cd8-11e6-8240-1090b14d28c1.png)
+
+- The third question has no answers available for selection.
+
+![screen shot 2016-06-07 at 5 52 46 pm](https://cloud.githubusercontent.com/assets/19765134/15875969/ab7f614a-2cd8-11e6-9d19-7e668f8d84f6.png)
+
+- Completion of the three available questions (skipping the third) is not sufficient to trigger the 'Complete Quiz' status, meaning this lesson is not currently possible to complete.
+
+![screen shot 2016-06-07 at 5 53 06 pm](https://cloud.githubusercontent.com/assets/19765134/15875982/b761b7d8-2cd8-11e6-999c-70ae8073c33f.png)
+Reported by https://learn.co/garettarrowood on the fe-0915 batch for the Front End Web Development track. 
+
+> Hello! I would do a pull request on the learn-co-curriculum, but the "Raise an Issue" feature doesn't seem enabled on this track. So -- I believe a test in this lab should be modified. I talked about it with Seema in length. There are a couple different routes to go with this change. Here is a modification to the 4th test, when the index DOESN"T equal the id ``` it("instances can set an id property that matches the ir index position in List.all array.", function() { var list = new List(); expect(list.id).toBe(1); expect(List.all[0]).toBe(list); });```. OR You could make this modification to test 3: ``` it("instances can be pushed into List.all upon creation.", function() { List.all = []; var list = new List(); expect(List.all.length).toBe(2); });``` ... And just to reiterate, only ONE of these modifications should be employed.I submitted the First Lab successfully by using the `learn submit` command but it seems as though the Learn.co website has not updated my status for the lab so I cannot continue. I have attached a screenshot of my lab screen as well as my terminal showing that I successfully submitted the passing repo:
+![screen shot 2015-11-22 at 7 05 32 pm](https://cloud.githubusercontent.com/assets/6217175/11327177/07f8c692-914c-11e5-866c-b60637ee4df0.png)
+![screen shot 2015-11-22 at 7 06 27 pm](https://cloud.githubusercontent.com/assets/6217175/11327186/2878d394-914c-11e5-9120-3f6eb2d80251.png)
+Can not open the coverage/index.html
+This is the error am getting:
+
+➜  tic-tac-toe-rb-q-000 git:(master) ✗ open coverage/index.html
+Couldn't get a file descriptor referring to the console
+
+Thank you for your help.
+
+Heber SandovalAll my tests are passing, but it says build failures. I get a green light in Learn on my desktop but red light on the web site.
+One sticking point for a lot of current class on this one was minor thing: when you make submit button on form, must be `<input type="submit">` not `<button type="submit"`>. Would be good to through a little reminder in the readmethe video does not have audio and there is an error code trying to download the video which i think it says access denied or the link is invalid which it would of said invalid link.I haven't been able to push my commits from the css issue bot to github. I keep getting a 403 error. Is there anything I can do on my end to fix that?While the `learn open` function is properly forking the lesson, it doesn't change into the appropriate directory after doing so. On my Nitrous IDE, I just executed `learn open` which should have brought me into the "ttt-5-move-rb folder," but instead it dropped me into "interpolation-super-power-q-000."Pretty much whenever a user hit submit, we need to check that they are then redirected to the right place and the action of the form is a sensible URLI was on the first lab offered and I have completed it. The problem is I completed it out of order and now I seem to have confused the system. I had to edit the edit-me.txt file which I did but I just went ahead and typed "learn submit" to the console (and Nitrous accepted it.) Now on learn.co it says I finished the lab but because I didn't do "learn" on its own first, Learn.co is telling me "your local tests have not been run." As such I cannot advance to the next track. When I click "next lesson" it sends me to the start of "The Learn Philosophy" again. How can this problem be remedied.It is quite cumbersome view written HTML code within the Nitrous environment compared to a local environment. Instead of making changes and downloading the project files to my local haddrive, I opted to use the gh-pages branch so I could view my changes after every push command in Nitrous. GitHub's interface makes this process fairly apparent but I was still disappointed that GitHub's page publishing feature was not covered in this lesson to make it easier for those of us developing in the Nitrous environment.
+
+I think it would be helpful to include a quick refresh of git commands particularly pertaining to creating a new branch named gh-pages, commiting and pushing changes to the new branch, then merging the finished gh-pages branch with the master branch. This would have certainly saved me some time and confusion.When I ran bundle install I got this message:
+```
+14:52:28] (master) rails-blog-nested-forms-v-000
+// ♥ bundle install
+Your Ruby version is 2.2.3, but your Gemfile specified 2.2.0
+[14:52:53] (master) rails-blog-nested-forms-v-000
+// ♥ rvm install ruby-2.2.0
+```
+
+After installing 2.2.0, I tried running learn and got this:
+```
+// ♥ learn
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/rubygems/dependency.rb:296:in `to_specs': Could not find 'learn-co' (>= 0) among 16 total gem(s) (Gem::LoadError)
+    from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/rubygems/dependency.rb:307:in `to_spec'
+    from /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib/ruby/2.0.0/rubygems/core_ext/kernel_gem.rb:47:in `gem'
+    from /usr/local/bin/learn:22:in `<main>'
+```
+
+I don't know if I did something wrong, but if I just set the Gemfile to my current Ruby version:
+
+```
+ruby '2.2.3'
+```
+
+and everything seems to be running well. I checked another student (who completed the lab already) and they had changed it to 2.2.3, too.Ran bundle & then learn, getting a Name error for the ConnectionAdapter. This also happened with the previous Lab - Writing Migrations, so maybe it's the same issue. 
+
+
+➜  activerecord-costume-store-todo-001 git:(master) ✗ learn
+/home/nitrous/code/labs/activerecord-costume-store-todo-001/lib/support/db_registry.rb:1:in `<top (required)>': uninitialized constant ConnectionAdapter (NameError
+)
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/config/environment.rb:13:in `require'
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/config/environment.rb:13:in `block in <top (required)>'
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/config/environment.rb:13:in `each'
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/config/environment.rb:13:in `<top (required)>'
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/spec/spec_helper.rb:3:in `require_relative'
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/spec/spec_helper.rb:3:in `<top (required)>'
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/.bundle/gems/rspec-core-3.4.1/lib/rspec/core/configuration.rb:1295:in `require'
+        from /home/nitrous/code/labs/activerecord-costume-store-todo-001/.bundle/gems/rspec-core-3.4.1/lib/rspec/core/configuration.rb:1295:in `block in requires='I forked it via Nitrous--checked independently on GitHub, and refreshed page-- but the button won't turn green.Got a 404 when I tried to get to the repo. Here is the live link: https://github.com/learn-co-students/objc-PetCast-001I'm not sure if it's intentional, but you might want to reconsider having an unavailable image in a beginner lab.
+
+[http://38.media.tumblr.com/70ace162d8f0654f3239aa7447a21870/tumblr_muvabkXjsz1qz6h81o1_1280.jpg](http://38.media.tumblr.com/70ace162d8f0654f3239aa7447a21870/tumblr_muvabkXjsz1qz6h81o1_1280.jpg)
+
+in a browser yields:
+```
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<Error>
+<Code>AccessDenied</Code>
+<Message>Access Denied</Message>
+<RequestId>400EFF93F2911751</RequestId>
+<HostId>
++x9K4f82Ak2R3sB9xb0PK/c5e0FPy9ZYmfhoJBEkIw/jeTT6zzNixS8wrbv6Ot4lPLZx6o+NDwU=
+</HostId>
+</Error>
+```
+
+Also, I don't know your release cycle, but the current version of this lab that came to me is not the version that's here.  I got no cute robot.  >:OMany of my recent lessons on GitHub are 1 or 2 commits "ahead of learn-co-students:master." No matter what I do--via Nitrous or command line, I can't seem to get it even with the master.
+
+Am I doing it wrong? Sorry about the endless pull requests (along w other newbie errors).Connection error. Please try again.
+/usr/local/opt/rbenv/versions/2.1.5/lib/ruby/gems/2.1.0/gems/learn-web-1.4.2/lib/learn_web/client/user/me.rb:19:in `parse!': undefined method `status' for nil:NilC
+lass (NoMethodError)
+        from /usr/local/opt/rbenv/versions/2.1.5/lib/ruby/gems/2.1.0/gems/learn-web-1.4.2/lib/learn_web/client/user/me.rb:15:in `initialize'
+        from /usr/local/opt/rbenv/versions/2.1.5/lib/ruby/gems/2.1.0/gems/learn-web-1.4.2/lib/learn_web/client/user.rb:16:in `new'
+        from /usr/local/opt/rbenv/versions/2.1.5/lib/ruby/gems/2.1.0/gems/learn-web-1.4.2/lib/learn_web/client/user.rb:16:in `me'Can anyone replicate this error?  ruby 2.3.0 @PeterBell 
+* 03_human_player_spec.rb
+* 04_game_spec.rb
+* 05_computer_player_spec.rb
+
+## Debug
+```
+♥ rf spec/03_human_player_spec.rb 
+/Users/yonk/Development/code/ttt-with-ai-project-v-000/spec/03_human_player_spec.rb:5: warning: toplevel constant Human referenced by Player::Human
+./Users/yonk/Development/code/ttt-with-ai-project-v-000/spec/03_human_player_spec.rb:10: warning: toplevel constant Human referenced by Player::Human
+.
+Finished in 0.01066 seconds (files took 0.22682 seconds to load)
+2 examples, 0 failures
+```
+```
+♥ rf spec/04_game_spec.rb 
+...../Users/yonk/Development/code/ttt-with-ai-project-v-000/spec/04_game_spec.rb:59: warning: toplevel constant Human referenced by Player::Human
+/Users/yonk/Development/code/ttt-with-ai-project-v-000/spec/04_game_spec.rb:62: warning: toplevel constant Human referenced by Player::Human
+............................
+
+Finished in 0.03843 seconds (files took 0.21416 seconds to load)
+33 examples, 0 failures
+```
+```ruby
+#./03_human_player_spec.rb
+describe 'Player::Human' do
+  it 'inherits from Player' do
+    expect(Player::Human.ancestors).to include(Player)
+  end
+
+  describe '#move' do
+    it 'asks the user for input and returns it' do
+      human = Player::Human.new("X")
+      allow($stdout).to receive(:puts)
+
+      expect(human).to receive(:gets).and_return("1")
+
+      expect(human.move([])).to eq("1")
+    end
+  end
+end
+```
+```ruby
+#./04_game_spec.rb
+    it 'defaults to two human players, X and O, with am empty board' do
+      game = Game.new
+
+      expect(game.player_1).to be_a(Player::Human)
+      expect(game.player_1.token).to eq("X")
+
+      expect(game.player_2).to be_a(Player::Human)
+      expect(game.player_2.token).to eq("O")
+
+      expect(game.board.cells).to match_array(Array.new(9, " "))
+    end
+```
+
+## Recommended Edits
+remove the constant `Player` and specs pass ok.  nothing breaks.  ./win
+```
+♥ rf spec/03_human_player_spec.rb 
+..
+
+Finished in 0.00792 seconds (files took 0.2156 seconds to load)
+2 examples, 0 failures
+```
+```
+♥ rf spec/04_game_spec.rb 
+.................................
+
+Finished in 0.03518 seconds (files took 0.21796 seconds to load)
+33 examples, 0 failures
+```
+For the describe block since rspec doesn't evaluate the string as nothing more then a string we can leave 'Player::Human' as this won't impact the tests.  If you remove the scope it may detour learners from how to implement the lab.
+
+```ruby
+# spec/03_human_player_spec.rb 
+describe 'Player::Human' do
+  it 'inherits from Player' do
+    expect(Human.ancestors).to include(Player)
+  end
+
+  describe '#move' do
+    it 'asks the user for input and returns it' do
+      human = Human.new("X")
+      allow($stdout).to receive(:puts)
+
+      expect(human).to receive(:gets).and_return("1")
+
+      expect(human.move([])).to eq("1")
+    end
+  end
+end
+```
+```ruby
+# spec/04_game_spec.rb 
+      expect(game.player_1).to be_a(Human)
+      expect(game.player_1.token).to eq("X")
+
+      expect(game.player_2).to be_a(Human)
+      expect(game.player_2.token).to eq("O")
+```
+
+ I didn't include debug for this last bug but this the other spec file `05_computer_player_spec.rb`  It needs Player removed from here too.
+
+```ruby
+#  05_computer_player_spec.rb
+describe 'Player::Computer' do
+  it 'inherits from Player' do
+    expect(Player::Computer.ancestors).to include(Player)
+  end
+
+  describe '#move' do
+    it 'returns a valid position for the computer to move' do
+      computer = Player::Computer.new("X")
+      board = Board.new
+```
+
+
+I completed the lab using the 'learn -b' command from the CLI and got all tests passing. Then I ran just 'learn' to check it in and it said "Owner should be able to go on a bike ride" fails, even though this was done and repeated within seconds of each other. I'll open a PR for the code in a moment.I think I  may have downloaded the solution? All the tests pass and everything is already done via the instructions, unless I'm missing the point. When I tried to push it back to github, manually too, I get an error. 
+
+------LEARN  COMMAND ------
+Shana: rails-refactoring-apis-v-000
+♥ learn
+
+GithubRepo
+  initialization with hash
+    sets key 'name' to @name
+    sets key 'html_url' to @url
+
+GithubService
+  initialization
+    can be initialized without an `access_hash`
+    can be initialized with an `access_hash`
+  #authenticate!
+    sends the correct POST request
+    sets @access_token for a GithubService
+  #get_username
+    sends the correct GET request
+    returns the username
+  #get_repos
+    sends the correct GET request
+    returns an array of GithubRepo objects
+  #create_repo
+    sends the correct POST request
+
+Features
+  authentication
+    displays the username on the page
+  visiting root
+    lists repos
+  new repo form
+    creates a new repo
+
+Finished in 4.18 seconds (files took 4.47 seconds to load)
+14 examples, 0 failures
+
+
+---- LEARN SUBMIT COMMAND ----
+Shana: rails-refactoring-apis-v-000
+♥ learn submit
+Adding changes...
+Committing changes...
+Pushing changes to GitHub...
+/Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/git-1.2.9.1/lib/git/lib.rb:917:in `command': git '--git-dir=/Users/Shana/Development/code/rails-refactoring-apis-v-000/.git' '--work-tree=/Users/Shana/Development/code/rails-refactoring-apis-v-000' push 'origin' 'master'  2>&1:error: src refspec master does not match any. (Git::GitExecuteError)
+error: failed to push some refs to 'git@github.com:ShanaLMoore/rails-refactoring-apis-v-000.git'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/git-1.2.9.1/lib/git/lib.rb:727:in `push'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/git-1.2.9.1/lib/git/base.rb:329:in `push'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/learn-submit-1.1.7/lib/learn_submit/submission/git_interactor.rb:123:in `block in push!'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/timeout.rb:89:in `block in timeout'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/timeout.rb:34:in `block in catch'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/timeout.rb:34:in `catch'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/timeout.rb:34:in `catch'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/2.2.0/timeout.rb:104:in `timeout'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/learn-submit-1.1.7/lib/learn_submit/submission/git_interactor.rb:122:in `push!'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/learn-submit-1.1.7/lib/learn_submit/submission/git_interactor.rb:23:in `commit_and_push'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/learn-submit-1.1.7/lib/learn_submit/submission.rb:46:in `commit_and_push!'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/learn-submit-1.1.7/lib/learn_submit/submission.rb:22:in `create'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/learn-submit-1.1.7/lib/learn_submit/submission.rb:6:in `create'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1@global/gems/learn-submit-1.1.7/bin/learn-submit:15:in `<top (required)>'
+    from /Users/Shana/.rbenv/versions/2.2.2/bin/learn-submit:23:in `load'
+    from /Users/Shana/.rbenv/versions/2.2.2/bin/learn-submit:23:in `<main>'
+Shana: rails-refactoring-apis-v-000
+♥ 
+This lab is still using the green_onion gem which has an issue with the rainbow gem that it requires.  I had problems with this gem a few days ago when working on the HTML labs and I thought that it had been removed from the labs?  I see that other people have successfully submitted pull requests in the last few days.  I'm assuming that they are successfully using the gem?  I was able to get my tests to pass only by modifying my local version of the green_onion gem to work properly with rainbow.     I still can't  get the tests to pass. I've tried recloning this lab. As well as deleting the gemfile.lock and bundle install. 
+
+Shana: lazy-loader.js-v-000
+♥ learn
+/Users/Shana/.rvm/gems/ruby-2.2.1/gems/activesupport-4.2.6/lib/active_support/dependencies.rb:274:in `require': cannot load such file -- capybara (LoadError)
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/activesupport-4.2.6/lib/active_support/dependencies.rb:274:in `block in require'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/activesupport-4.2.6/lib/active_support/dependencies.rb:240:in `load_dependency'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/activesupport-4.2.6/lib/active_support/dependencies.rb:274:in `require'
+    from /Users/Shana/Desktop/lazy-loader.js-v-000/spec/spec_helper.rb:4:in `<top (required)>'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+    from /Users/Shana/.rbenv/versions/2.2.2/lib/ruby/site_ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/configuration.rb:1295:in `block in requires='
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/configuration.rb:1295:in `each'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/configuration.rb:1295:in `requires='
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/configuration_options.rb:109:in `block in process_options_into'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/configuration_options.rb:108:in `each'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/configuration_options.rb:108:in `process_options_into'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/configuration_options.rb:21:in `configure'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:105:in `setup'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:92:in `run'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:78:in `run'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/lib/rspec/core/runner.rb:45:in `invoke'
+    from /Users/Shana/.rvm/gems/ruby-2.2.1/gems/rspec-core-3.4.4/exe/rspec:4:in `<top (required)>'
+    from /Users/Shana/.rbenv/versions/2.2.2/bin/rspec:23:in `load'
+    from /Users/Shana/.rbenv/versions/2.2.2/bin/rspec:23:in `<main>'I honestly don't know if this is my fault but this works when I require 'rake' in my gemfile.  I did run bundle install before issuing these commands.  Is this a problem with my ruby environment setup?  
+
+[12:38:31] (master) activerecord-associations-intro
+♥ rspec --fail-fast
+/Users/yonk/Development/code/foo/activerecord-associations-intro/config/environment.rb:5:in `require': cannot load such file -- rake (LoadError)
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/config/environment.rb:5:in `<top (required)>'
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/spec/spec_helper.rb:3:in `require_relative'
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/spec/spec_helper.rb:3:in `<top (required)>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `require'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `block in requires='
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `each'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `requires='
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:109:in `block in process_options_into'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:108:in `each'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:108:in `process_options_into'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:21:in `configure'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:101:in `setup'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:88:in `run'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:73:in `run'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:41:in `invoke'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/exe/rspec:4:in `<top (required)>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/rspec:23:in `load'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/rspec:23:in `<main>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `eval'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `<main>'
+[12:39:37] (master) activerecord-associations-intro
+
+♥ bundle exec rspec --fail-fast
+/Users/yonk/Development/code/foo/activerecord-associations-intro/config/environment.rb:5:in `require': cannot load such file -- rake (LoadError)
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/config/environment.rb:5:in `<top (required)>'
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/spec/spec_helper.rb:3:in `require_relative'
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/spec/spec_helper.rb:3:in `<top (required)>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `require'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `block in requires='
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `each'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `requires='
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:109:in `block in process_options_into'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:108:in `each'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:108:in `process_options_into'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:21:in `configure'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:101:in `setup'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:88:in `run'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:73:in `run'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:41:in `invoke'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/exe/rspec:4:in `<top (required)>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/rspec:23:in `load'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/rspec:23:in `<main>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `eval'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `<main>'
+[12:39:45] (master) activerecord-associations-intro
+
+/Users/yonk/Development/code/foo/activerecord-associations-intro/config/environment.rb:5:in `require': cannot load such file -- rake (LoadError)
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/config/environment.rb:5:in `<top (required)>'
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/spec/spec_helper.rb:3:in `require_relative'
+    from /Users/yonk/Development/code/foo/activerecord-associations-intro/spec/spec_helper.rb:3:in `<top (required)>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `require'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `block in requires='
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `each'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration.rb:1280:in `requires='
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:109:in `block in process_options_into'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:108:in `each'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:108:in `process_options_into'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/configuration_options.rb:21:in `configure'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:101:in `setup'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:88:in `run'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:73:in `run'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/lib/rspec/core/runner.rb:41:in `invoke'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/gems/rspec-core-3.3.0/exe/rspec:4:in `<top (required)>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/rspec:23:in `load'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/rspec:23:in `<main>'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `eval'
+    from /Users/yonk/.rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `<main>'
+
+♥ rvm -v
+rvm 1.26.11 (latest) by Wayne E. Seguin <wayneeseguin@gmail.com>, Michal Papis <mpapis@gmail.com> [https://rvm.io/]
+[12:39:51] (master) activerecord-associations-intro
+♥ ruby -v
+ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
+[12:39:56] (master) activerecord-associations-intro
+♥ not sure if this is an issue specific to my environment setup, but when running **webdriver-manager update** command, i ran into an issue similar to http://stackoverflow.com/questions/29079021/webdriver-manager-update-error-eacces-permission-denied
+
+had to use **sudo webdriver-manager update** to fix the issue. Hello, I cannot get into Nitrous as of yesterday.  I logged out and logged back in, refreshed my browser, refreshed Nitrous, to no avail.
+
+Can someone help with this?
+
+Thanks,> || rake aborted!
+> || NameError: uninitialized constant AddGradeAndBirthdateToStudents
+
+If you run `rake db:migrate` after writing the code in `01_create_students.rb`, as the instructions in the lesson guide you to, you will receive the above error.
+
+This error seems to happen because Rake sees the other migration files and expects them to have classes declared (`Add_Grade_And_Birthdate_To_Students`). 
+
+Either declare the classes in them, or don't include the files and ask the student to create the next two migration files.not urgent but the Grey's Anatomy image isnt working Please see error message below. 
+
+pod --version 0.37.2
+Xcode Version 7.3 (7D175)
+
+```
+CompileStoryboard objc-holiday-properties/Main.storyboard
+    cd /Users/johnrichardson/Development/code/learn/objc/objects/objc-holiday-properties-001
+    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    export XCODE_DEVELOPER_USR_PATH=/Applications/Xcode.app/Contents/Developer/usr/bin/..
+    /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --errors --warnings --notices --module objc_holiday_properties --output-partial-info-plist /Users/johnrichardson/Library/Developer/Xcode/DerivedData/objc-holiday-properties-ekxnvghimvqnlrgvynfhpynkmdid/Build/Intermediates/objc-holiday-properties.build/Debug-iphonesimulator/objc-holiday-properties.build/Main-SBPartialInfo.plist --auto-activate-custom-fonts --target-device iphone --minimum-deployment-target 8.0 --output-format human-readable-text --compilation-directory /Users/johnrichardson/Development/code/learn/objc/objects/objc-holiday-properties-001/objc-holiday-properties/Main.storyboard
+
+/* com.apple.ibtool.errors */
+: error: Not enough arguments provided; where is the input document to operate on?
+```I get and error when I run ```rake db:migrate```
+```
+// ♥ rake db:migrate
+rake aborted!
+LoadError: cannot load such file -- rake
+```
+
+I fixed by adding 
+```gem 'rake'```
+to the Gemfile
+
+and then ```bundle``` in the command lineThe link path is old on the Forked Lab link in the step-checkpoints part of the page. Hello, I apologize in advance if this is something you are already working on or perhaps I did something wrong on my part. I noticed a few issues with this particular lab:
+
+1) When I forked & cloned the master, there was literally nothing in the index.html file. At first, I thought I would find further instruction on what to type in the file, but there were no instructions, so I just copied the index solution code from the Learn Master branch and pasted it into my local index.html file. 
+
+2) None of the images (kitty-1....) would display in any of my browsers (ie, firefox, and chrome) or my image viewers. This is the first time I had problems with seeing images in a lab. There could be something wrong with my browsers.
+
+3) I really appreciated how previous labs had a snapshot of what the final outcome should look like. Since there was no such image, I wasn't exactly sure if I got the desired effect. I believe future users would benefit from seeing an image of what the page should look like.
+
+That is all. I have really been enjoying all the labs so far.=)
+

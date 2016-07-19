@@ -1,0 +1,607 @@
+I wasn't able to run subl . without getting the error message "-bash: subl: command not found" 
+Some Googling led me to [this article by Olivier Lacan](http://olivierlacan.com/posts/launch-sublime-text-3-from-the-command-line/) which walked me step by step through what to do to get subl . to work. Should probably change the instruction or add a note/link for beginners.The question "Which of the following is/are numbers?" has multiple correct options, but there is no way to select more than one answer. This seems a little confusing. Can we either only have one correct answer, or change the format so students must select all correct answers? 
+@pletcher When I load this lab up in Learn, I do not see any possible answers for "Which of the following is/are booleans?"so.. I used each_with_index per the instructions, but it is not valid
+
+however, each.with_index is valid
+
+this is highly confusingIt feels out of place after we've just covered functions. 
+
+@jmburges "every function declared in this way gets an arguments object...." What's a object?
+
+Also I wouldn't introduce them something like this. How often will a beginner coder use that arguments object?I don't want students thinking the method magically prints that stuff out 10 times. It should be exactly the same except the fact that now it's wrapped in a functionWe don't talk about types until significantly later in the ruby curriculum. You discuss, variables, ECMAscript, functions, objects all kinds of stuff and they have written only one line of JS ever... `console.log("hello, world")`. 
+
+How would students know what all of those things are and have enough knowledge to have felt the pain of not knowing about data types? Also there are so many new terms in this README that they'll be lost in those.They have only written one line of code and we are testing them on some advanced JS typeof trivia. Seems a bit too difficult too fast?
+
+Also in general, when has knowing the typeof those things helped out for this early in your JS career?I think the idea of an operator is actually fairly simple when used in context. Things like math operators are valuable...if you are doing math. Introduce them later down the road when you are doing math. The `==` operator is useful when they are doing `if` statements.  The assignment operator is useful when introducing variables. You haven't done that yet as of this reading so it's super abstract right nowNot sure if this is the right place for this, but I had a hard time following this video. I think a crash course on how to create Rspec tests before this would have been helpful for me, because even though we've been using them to make our code work so far, this overview is losing me with the details of building the tests themselves. Basically I'm struggling to understand the main object concepts because I'm trying to make sense of how to write Rspecs. We should introduce these after introducing variables and function expressions.![image](https://cloud.githubusercontent.com/assets/15042882/14718477/ea82d6e4-07c4-11e6-8123-387b5e989710.png)
+i may be misunderstanding this, but the 'link' value seems to be coming out of nowhere at the end of the readme, i'd imagine that within the controller it needs to be set to this.link = 'https://twitter.com'  for that to work. To follow the commands presented in the video, I also had to run gem install hello_world and  brew install treeInstructions in step 5 are outdated. Learn.co layout has changed, github link to forked copy has moved to sidebar.In the readme:
+
+There is already a view that outputs all the authenticaton data, as well as showing you the user's photo if one is provided.
+
+I don't believe this was finished in the lab.`transclude`, `require`, `link` and `$ctrl` need proper explanations before a lab assignment.So in the instructions it's recommended to run rspec ./spec/models/01_thing_spec.rb so you can build things in order.  Since RSpec by default will run files\folders in aphabetical order you can prepend numbers to your folders to fix this issue.  Then the students just have to run learn or rspec and the tests will happen in order.  This lab has no controller tests obviously but I would usually do 01_models, 02_controllers, 03_features since the features are a result of a working model and controller.  I'd assume to work with the controller you could use a double or web_mock to insure it's receiving requests and handling them properly in return sending out the expected response.
+
+recommended folder naming convention.
+```
+./spec
+  /01_models
+  /02_features
+```This quiz is referring to sprites and I don't think we covered those in this section...Wondering if this is supposed to be a codealong using the rails app we generated in the first unit, or if it's strictly readme. If it's the former, there's some setup information missing. I'm moving on without coding along so I don't waste time trying to figure out why the code's not working for me, but it could be clearer. Lesson needs to clarify the need of using the devise gem. @vicfriedman: The [Readme](https://github.com/learn-co-curriculum/ruby-orm)  before this lab covers ORMs and it's duplicated in the ORMs section. 
+
+Talking to other instructors, this lab doesn't touch on ORMs so the Readme should either just be removed or replaced or additional things that students need to know to complete this lab can be added to this lab's Readme. Can you review the ORM readme and this lab and see what needs to be changed? 
+
+Thanks!I'm passing all the specs, but am not able to create a Gist as intended. The fist student to finish didn't seem to either.
+
+First sign things were wrong was the response didn't seem to match what was expected. Maybe I generated the wrong kind of GH token? If so, maybe there could be a tutorial on how to get the right on? see response object :
+
+<img width="830" alt="screen shot 2016-02-19 at 6 47 57 pm" src="https://cloud.githubusercontent.com/assets/14326883/13183918/679f5880-d739-11e5-9326-acc9559c6559.png">
+
+I'm not sure how to fix this, but 2/2 students had the same problem, so maybe the rest will too.
+
+This was how I created my token:
+
+<img width="799" alt="screen shot 2016-02-19 at 6 51 35 pm" src="https://cloud.githubusercontent.com/assets/14326883/13184023/eaf1450e-d739-11e5-879b-79d14ae736cc.png">
+
+
+might be easier to have them set the headers key in the options object than using the before send callback
+$.ajax({
+    url: 'GitHub URL HERE',
+    type: 'POST',
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Authorization", "token PERSON-TOKEN-HERE");
+    },this lab does not use the promise style callbacks as in the readmes.  i think we should standardize on the non-promise stylethis is a great place to draw the comparison between ruby's blocks and JS anonymous functionsprobably say a little more about what events exactly are, that the browser fires themnot sure if we want to talk about it here, but we'll need a good discussion of how this works in 'regular' js so that when we get to objects it makes sense.  maybe we move it to another readme closer to the objects section?Complaint from students:
+Not clear *why* any given thing in the instructions is being done. The flow is pretty opaque -- "do this, do this, do this, do this".In routes.rb:
+
+ ```
+ get 'sessions/new'
+
+  root 'application#hello'
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  post '/logout' => 'sessions#destroy'
+```
+the first route ``` get 'sessions/new'``` and the third route ``` get '/login' => 'sessions#new'``` are the same. So students routing to login_path will get errors.
+
+Fix:
+Delete the first route ``` get 'sessions/new'```https://regex.alf.nu/  when visited I get an insecure link error.The file iOSShopping-Cart/.DS_Store should not be included in the repo.@queerviolet I think this is the old version of the gem.  Can you update this readme and the lab with any API changes to the newer version of the gem cancancan?expect(transfer_class.scan(/sender.valid\? \&\& receiver.valid\?/).length).to eq 1
+
+should read
+
+expect(transfer_class.scan(/@sender.valid\? \&\& @receiver.valid\?/).length).to eq 1The curriculum doesn't cover what the following things mean:
+
+<input id="hidden" type="hidden" name="_method" value="patch">
+use Rack::MethodOverride
+
+In general, the update and delete actions are difficult to execute/understand, since there isn't anything in the curriculum that explains these. There is context for completing the Create and Read actions, but not enough for Update and Delete.Not really a big deal but Learn.co lists challenges in different order. Challenge 2 references something done in Step 1 but it's really step 3. 
+
+STEP 2. GET THE MINIMUM VALUE
+
+Simply calling .min on what we did in Step 1 should do the trick:
+
+groceries.values.flatten.min
+#=> "broccoli"the `<hgroup>` element was [dropped from HTML5 specification on April 16th 2013](http://html5doctor.com/the-hgroup-element/). In order to validate the HTML successfully, the `<hgroup>`  element must be removed. The element can be safely removed from the index.html file without affecting the layout of the page.Because of the new year, perhaps this should be rewritten to accommodate the 2016 current year.
+
+I submitted the pull request [HERE!](https://github.com/learn-co-students/intro-to-tdd-rspec-and-learn-002/pull/50)
+
+Thank you.This lesson is before the introduction to hashes, yet relies on you knowing how to work with them.So many boxes!
+
+I would merge the HTTP verb and the HTTP path section into one. Maybe other ways? I dunno it just seems like there is a lot going onThere is no code along for the lab. I can follow the writing but maybe remove the references to the code along.The readme does not provide an explanation of the HAVING command.if null is in fact an object, it shouldn't be in the primitive types sectionstart with description around ecommerce with different models before routes - products, orders, users, etcIn the Manipulating PArams section you show how to `put`s your params. Problem is that hash is going to get lost in all of the output of shotgun. Can you paste in all of the output and then highlight the hash? This is so silly, but Juliet's name is incorrectly spelled "Juliette" both in the lesson and the tests.second bullet in connecting form to sinatraYou say "will create a `:name` in the parms hash" but they have no idea what the params hash is! Explain that all inputs, come in as a params hash. Also show them that we can add things using URL GET paramsCommits are straight in Readme. @jmburges There is a _Hash Iteration_ lab followed by a _Hash Iteration - Each_ lab both of which are the same. Hash Iteration does not have the option to be opened through learn, but Hash Iteration - Each can.
+
+When I clicked "next lesson" on the Hash Iteration - Each lab it too displayed an empty grey circle indicating I had not completed it.
+
+I'm sure this is not intentional, just letting y'all know.Should it come after the CSS layout lessons?  Thanks!Solution branch would be helpful for comparing official final rendered view since there is no mockup.jpgReally out of place and throws kids for a loop. Either need to make sure to talk about it in lecture, or improve the instructions dramatically.Include the starter `.db` file in this and remove reference to "previous lab"when i fork and clone this lab, i know its a continuation of the previous labs for exceptional realty but this file was empty.  I had to redo all of the branches and html files before i could begin following the video to do the video embed. Hello, 
+
+I remember doing this lesson in the prework and in the prework lesson, there was a link to download the image that was being used in the video.  I don't know if it was a choice to take it off so we can find our own image but i figured i would bring it to your attention just in case if it was forgotten. 
+
+thanks I got a 500 Internal Server Error when clicking on this link just now: http://weblog.invasivecode.com/core-graphics.Hashes are used in some of the problems. Think it would be better for this problem set to be placed under the hashes subsection. I don't think image and caption match up under step 5,
+
+"On the left is a passing test run in the terminal. On the right is what the right column in Learn looks like for a passing local test (which we currently call a "Local Build").
+
+![image](https://cloud.githubusercontent.com/assets/9704854/16425730/eef09f78-3d33-11e6-85e5-e271d6e44f88.png)
+
+should have tests to make sure they actually did the labIt may just be my eye-sight but the text on the screenshots seem too small and are hard to read.
+
+Here's what I'm seeing on 100%:
+<img width="1265" alt="screen shot 2016-06-28 at 10 27 18 pm" src="https://cloud.githubusercontent.com/assets/1326555/16438638/82bf15e0-3d7f-11e6-82a4-024f56f767cb.png">
+Weird to mark all the correct answers for each of these practice examples, isn't it?The `beforeEach` action in the spec calls `emptyArr(List.all);`. `emptyArr` calls on the length of the array that's passed in. This means that if you haven't defined `List.all` yet, you'll get an error from `spec.helper.js`  "Cannot read property 'length' of undefined".  The before each only needs to empty the List if `List.all` has been defined. 
+
+ie
+```javascript
+    beforeEach(function() {
+      if (!!List.all){
+        debugger;
+        emptyArr(List.all); // for deleting instances between tests
+        list = new List('Jon\'s List');
+      }
+    });
+```
+
+We should change this in the list spec and the task specI think having them publish their forks themselves by editing the CNAME is a bad idea and has already created issues for everyone trying to solve this lab.
+
+cc @jmburges @AnnJohn In the logical operators chart the double pipe (or) is missingThat bullet needs to be removed, but it's correct. We should connect the route up before talking params. I want them to be able to see the params immediately after discussing it. Right now we explain params but since the route isn't done they can't playThe course reads: "In previous readings we discussed the five loop types, loop, times, while, until, and for." I don't believe we discussed `for` yet.You could do this README without method arguments because this is used in tracks where method arguments might not be covered.
+
+I think good examples would be:
+
+```ruby
+def print_one_plus_one
+  puts 1+1
+end
+
+def one_plus_one
+  1+1
+end
+
+wrong_answer = print_one_plus_one # prints 2 but returns nil
+right_answer = one_plus_one # prints nothing but returns 2
+```Challenges 11 & 12 are a very steep increase in difficulty from even the other challenges in this lab. Many immersive students have trouble accomplishing them without tutoring and for an online experience, this difficultly can present a huge blow in morale, and this kind of dictionary manipulation is a rare pattern in Objective-C. Marking these last two method implementations as "advanced" or "optional" should be enough to avoid this, while still allowing the go-getter students to engage the challenge if they have the time.I believe in the video the instructor is using emmet shortcuts, maybe add a note and a link to emmet documentation.
+:)
+It would be interesting and perhaps a bit cleaner to see this exercise done in a more object/class-oriented fashion. So instead of creating a new kind of service namespace like
+
+```javascript
+var tweetShortener = {
+    wordSubstituter: function(){},
+    bulkShortener: function(){},
+    selectiveShortener: function(){},
+    shortenedTruncator: function(){},
+};
+```
+
+the methods would instead exist on a `Tweet` object which could then be called in a manner similar to 
+
+```javascript
+var tweet, text_to_test
+tweet = new Tweet('Hello I\'m a really long tweet and I like to be modified')
+text_to_test = tweet.substitute_long_words().truncate().to_string()
+```
+
+This could be written by students using ES5 function constructors just glossing over the different between classical and prototypical inheritance or using ES6's proper classes.Right now we are doing something that could be done easier (and better) without sessions. This lab should do something that sessions really lend themselves to. In my mind I think that could be just a shopping cart type thing. So have three items, and when they click on add item to cart if adds it to a cart that is held in the session. I found the challenges far too advanced. I was not familiar enough with the methods to generate the answers.
+
+The ‘lecture’ was very good, thorough and well-explained. However, there was a gap between the material and the challenges. 
+
+After spending several hours trying to resolve the 1st two challenges in this section, I looked at the solutions on github. I was able to resolve the third question (the boolean) myself without resorting to the solutions.I think the instructions in this lab are too ambiguous, and there is too large of a gap between what it explains and what the actual objective is.
+
+I've debugged 20 or 30 students who come prepared to solve this with the previous lab's answer, but are still not sure how this is different, what needs to be done, or even how to do it.
+
+The lab only mentions "interpolate" once, and doesn't emphasize that in actuality, that is the crucial difference and the key to solving it. It also doesn't emphasize the 3rd listed objective, or give an example of how to do so.
+
+This results in many students stuck at square one (no pun intended) and just open a new question with 
+
+
+```
+def display_board(board)
+  puts "   |   |   "
+  puts "-----------"
+  puts "   |   |   "
+  puts "-----------"
+  puts "   |   |   "
+end
+```
+
+with no idea how to transform that into a functional answer for this.The html files in the repository are different than the files that are shown in the code-along video. Since the files in the code-along have a lot more HTML5 elements I am not sure if we should add them ourselves or if the directory just contains the wrong file.video is way too fast and it does not display the whole programThe "Model-View-Controller" is not showing upthe foreign key is always in the column that belongs_to.GitHub link at top of page goes to https://github.com/learn-co-students/databases-and-text-editors-v-000, which is a 'Page not found.'
+
+This isn't a lesson that requires a fork so it's not super urgent. That link should point to https://github.com/learn-co-curriculum/sql-databases-and-text-editors-readme "What that exactly means will become more apparent in class and through exposure to the language." - replace "in class" with "during lessons"<img width="433" alt="screen shot 2016-01-01 at 5 02 05 pm" src="https://cloud.githubusercontent.com/assets/14326883/12071373/8c8bb83e-b0a9-11e5-8191-e574a1857c7c.png">
+
+Similar to the Fwitter lab, this lab's "View on GitHub" link is not available:
+
+<img width="1058" alt="screen shot 2016-01-01 at 5 00 34 pm" src="https://cloud.githubusercontent.com/assets/14326883/12071376/a8186584-b0a9-11e5-9962-866bdec90c8c.png">
+
+However the "Raise an Issue" link brings me here to the learn-co-curriculum account. That must have been how I got the wrong version of the Fwitter lab. I won't make the same mistake again. I'll wait for an update to the student version.
+
+Hope you had a nice NYE!@blake41 isn't that a weird pattern? I've always just passed in `@student` as a local instead of the `f`@jmburges 
+
+Commits were made to master We haven't taught them factory girl yet, so just do it with a before blockstudents had big questions on how the different pieces of their code fit together: what happens on document ready? what exactly is a callback function and how/when does it get invoked? what is chart.js and why do i need to pass it such a fancy and specific data structure?
+
+Without giving away too much, I think we can outline the instructions better or provide an overview of how their code will work.Under the heading, "How to Define and Use Rake Tasks," the reader is advised that there a task :hello within the Rakefile, however, this task does not exist outside of the namespace, :greeting.  Therefore, when the reader is then asked to type `rake hello` into the console, an error message is returned.The bonus at the bottom of the readme suggests reworking an if/else statement using a ternary operator. Since ternary operators were not covered in previous material the readme should include a quick review of ternary operators or a link to [ruby documentation](http://ruby-doc.org/core-2.2.0/doc/syntax/control_expressions_rdoc.html#label-Ternary+if).Lines 32 to 35 need a little more explanation @nanselmo this cloned lab has almost all of the steps already finished for us. A lot of the information here would've been useful in the first lab - where to write SQL queries, etc.But wait, isn't part of the point of an anonymous function to take up less memory? How is that useful to just store the unnamed function in a variable. That seems like the same thing.
+
+i'd take this whole section out. i think this confuses the issue.  we don't use anonymous functions to use less memoryas mentioned in my comment on the ajax readme i'd move this type of explanation to the other readmeIt appears this lab may have been intended to be placed later in the ActiveRecord section, as it requires that the student write migrations, despite there being no migration curriculum material inside of or before this lab (there are three lessons involving migrations that follow it).@kvignali @matbalez @frahman5Needs Introduction and Objective headers, as well as text expositionThe solution to the lab uses the `data` property of the response from $httpBackend to access the body and test the response, whereas the readme implies that the response itself is the body and uses code that would break in the example and indeed breaks in the lab. (perhaps this is intentional? but just in case...)
+@PeterBell The solution doesn't use inclusion, though step 7 does. Seems like the paragraph beginning "This step requires an inclusion validator ..." refers to step 7. Not a major problem--I got the tests to pass first, so I could see the solution and see what was used instead of #match--but needlessly confusing. 
+The first lab where we actually write SQL and pass tests is "SQL Aggregate
+Functions Lab" and the only instructions provided are "Run learn to get
+started. Write your SQL in lib/students to get the specs in
+spec/student_spec.rb to pass."
+
+Then, the next lab, "SQL Bear Organizer" it includes these instructions:
+
+Part 3: SELECT
+
+Get the tests in spec/select_spec.rb to pass. Note that for this section,
+the database will be seeded with external data from the lib/seed.sql file
+so don't expect it to reflect the data you added above. Note: Since it's a
+Ruby file, write your queries as strings in the lib/sql_queries.rb.
+
+This was the part I had difficulty with in the first lab.  Where do I write
+my SQL code? How do I write my SQL code into a Ruby file?  I found out
+after asking on the slack channel, I think, but it'd be nice to just have
+that info inside the lab instructions.
+
+In the lessons and codealongs proceeding the SQL aggregate functions lab,
+we never wrote code into a .rb file.
+
+Best,
+
+AdamI think it would save future students some time wondering how to build resourceful routes if they had this link: 
+
+http://edgeguides.rubyonrails.org/routing.html
+
+It's a great read. Just a thought :)The #show action for controllers\posts_controller.rb  in the readme example is as follows. I was advised by the learn-co staff to raise an issue over this as it *curious*. It appears to be a redundant if/else statement.
+
+```
+  def show
+    if params[:author_id]
+      @post = Post.find(params[:id])
+    else
+      @post = Post.find(params[:id])
+    end
+  end
+```In the instructions for "Creating our Database", typing
+
+`sqlite3 pets_database.db`
+`.quit`
+`ls`
+
+the output of ls didn't include the new database.  Apparently if you run:
+`sqlite3 pets_database.db ""`
+or a 'filler' command like:
+`sqlite3 pets_database.db .schema;`
+it does create the file, however.  (No .db file is created until some sort of command is issued, even if that command is "")
+Unless I'm not understanding this material fully, it seems that the students named Rob and Sara should have a teacher_id of '2' in the outputs of all the join examples?
+
+Also, the students named Bob and Jessie have their "id" swapped in some of the outputs.  (Bob's id is 3 and Jessie's is 2 in the 'schema' but reported as reversed in some of the outputs.)The post_params method allows both the title and description to be updated, but per the lab the update method is only supposed to allow the title to be updated.  If only the title is allowed to be updated, I think think post_params should be:
+```ruby
+def post_params(*args)
+  params.require(:post).permit(*args)
+ end
+```
+with the permitted fields being passed in as arguments.  (ie updated method below)
+```ruby
+def update
+  @post = Post.find(params[:id])
+  @post.update(post_params(:title))
+  redirect_to post_path(@post)
+end
+```
+
+```ruby
+def create
+  @post = Post.new(post_params(:title, :description))
+  @post.save
+  redirect_to post_path(@post)
+end
+```<img width="855" alt="screen shot 2016-04-01 at 1 09 36 am" src="https://cloud.githubusercontent.com/assets/10603933/14198300/7eb5884a-f7a6-11e5-8e73-738ee71ec2d6.png">
+
+The highlighted text in the screenshot above doesn't accurately encapsulate how scope works in JavaScript.
+
+The `var` keyword does not inherently determine whether a variable is _global_ or _local_, as you can define both types using `var`. What it _does_ do is define what _**object**_ a given variable is scoped to. If the variable is defined either in the _global namespace_ &mdash; with or without `var` &mdash; or inside of a function object without using the `var` keyword, it is bound to the _**`window` object**_ (the latter resulting from JavaScript's 'bubbling up' effect). If the variable is defined inside of a function expression or declaration using the `var` keyword, it is bound to the _**function object**_ inside of which it was defined.
+
+While the selected text may be technically valid if we're talking _solely_ about the effect of `var` _**inside of a function**_, I think it misses the larger point of how scope works in JavaScript, and verbiage such as _"the `var` keyword makes a variable have a local scope"_ and _"`var` for local variables or nothing for globals"_ could too easily be taken out of context by a beginner.
+
+Happy to chat about this IRL!It's great stuff,  but if this is the first time students are learning about OO, it can be a lot to take in. Not sure how to change that, and not a huge priority right now. But just calling attention to it. Part of the instructions for this lab are to create the form code and it appears the master branch already includes this. 
+
+After completing the controller action, all tests pass.
+
+Lab also makes use of partials which haven't been covered yet.Students don't know what `npm` or dependencies areBind is a super tehcnical word. I would just say "restrict" maybe?. Also what is local scope? Maybe mention it in the context of it's the function. They don't know if statements yet so we can't use that. The only scope they've seen is functionsFirst off, this lesson is sooooo much better. Super simplified and still presents good info. 
+
+My only question is whether you should go a little bit more in depth with string interpolation instead of just linking to template literals. This is pretty much just adding a few lines explaining what the ${ } is and then how you did it in the lesson earlier, giving students some examples to practice with in the console. 
+
+cc @jmburges @pletcher do you think we need to make a copy of this lesson for the paid Ruby track? This tells them to pair and code with one another.
+
+THANKS!Would prefer if the solution reinforced restful conventions.  For example, do not just render the erb show after submitting a form, but redirect to show.  Also, the show view should not display all of the pirates, etc.2In the enumerators code challenge quiz there is a problem with the questions. They are being pushed in as an answer choice for each question instead of looking like questions they look like an answer choice.  Just thought you all should know since it makes it a little confusing. 
+
+<img width="791" alt="screen shot 2016-06-09 at 6 05 03 pm" src="https://cloud.githubusercontent.com/assets/18711707/15949404/d66122be-2e6c-11e6-87ec-1ed037ac3cad.png">
+<img width="768" alt="screen shot 2016-06-09 at 6 05 15 pm" src="https://cloud.githubusercontent.com/assets/18711707/15949408/dae9af18-2e6c-11e6-831d-4d5af8ea3040.png">
+
+the specs for this lab (ruby_basics_spec.rb) are confusingly worded for two for the methods - suggested edits inserted below in **bold**:
+
+require 'spec_helper'
+require_relative '../lib/ruby_basics.rb'
+
+
+describe "ruby" do
+
+  describe "#division" do
+    it 'given two numbers returns quotient of the first number divided by the second number' do
+      num1 = 42
+      num2 = 7
+      
+      expect(division(num1,num2)).to eq(6)
+    end
+  end
+
+  describe '#assign_variable' do
+    it 'should take an argument of a persons name and assign it to a variable name' do
+      value = "Bob"
+
+      expect(assign_variable(value)).to eq(value)
+    end
+  end
+
+**Current wording here is misleading "#argue should add an argument to the method argue" suggests that the method itself should be coded to add an argument to itself" - suggested change here: "it 'should accept an argument and return that argument as is' do"**
+  describe '#argue' do 
+    it 'should add an argument to the method argue' do
+      phrase = "I'm right and you are wrong!"
+      
+      expect(argue(phrase)).to eq(phrase)
+    end  
+  end
+
+  describe '#greeting' do
+    it 'should take in two arguments' do
+      greeting = "Hi there, "
+      name = "Bobby!"
+
+      expect{ greeting(greeting, name) }.to_not raise_error
+    end
+
+    it 'should raise an error with one argument' do
+      greeting = "Hi there, "
+
+      expect{ greeting(greeting)}.to raise_error
+    end
+  end
+
+  describe '#return_a_value' do
+    it 'return the phrase "Nice"' do
+      expect(return_a_value).to eq("Nice")
+    end
+  end
+
+  describe '#last_evaluated_value' do
+    it 'return the phrase "expert"' do
+      expect(last_evaluated_value).to eq("expert")
+    end
+  end
+
+
+**Current wording here is misleading - "optional methods" doesn't seem to the term intended; it should be "should accept an optional argument; otherwise should return "cheese""**
+  describe '#pizza_party' do
+    it 'return optional method cheese' do
+      expect(pizza_party).to eq("cheese")
+    end
+
+    it 'return optional method pepperoni' do
+      expect(pizza_party("pepperoni")).to eq("pepperoni")
+    end
+  end
+endwe've moved this lab to after AR, add in activerecord - How to make a gem
+ - What a well done gem looks like
+ - How to hit APIs using gemsLet's consider recommending Atom. No need for people to pay $70 for not understanding how nag-ware works.Sessions weren't the first thing that developers figured out. They got cookies working first. A much more logical progression of showing users how we get to sessions is:
+
+ 1. Since HTTP is stateless, we need the browser to be responsible for holding some sort of simple state. Then on *each http* request it needs to send that state
+ 2. So cookies were created. Cookies are effectively just storing a hash on the browser that then gets sent with every request
+ 3. Servers then realized that there was a use case for just storing data very temporarily. Just while a user is using their website. We call that one usage a `session`.
+The my_select.rb file is already fully implemented when I cloned the file and passes all tests immediately without me doing anything. Also, I do not know if this is an issue or not but I had to run 'bundle install' to update rspec. Easy enough to do, but never had to do so in any of the other exercises so far / just a heads up.This lab is repeated (in different form) in the teacher fellowship training.IT keeps calling `ruby blah blah`. Make it tests!Hello,
+
+All of the arrays tested for here are written in numerical order except one.  The vertical middle win should be 2,4,6 not 6,4,2.  I spoke with Kate and she confirmed.
+
+./lib/tic_tac_toe.rb WIN_COMBINATIONS defines a constant WIN_COMBINATIONS with arrays for each win combination Failure/Error: expect(WIN_COMBINATIONS).to include([6,4,2]) expected [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]] to include [6, 4, 2]The tests in this lab are too general, specifically for #scrape_profile_page. The test passes as long as a hash is returned, irrespective of what is contained within the hash.
+
+Also with regards to the solution. If you call the child elements using [0] element and the profile page does not have a twitter icon (for example), then the twitter key will have a value of the next link that it does have. For example a linkedin link. So the keys will have incorrect values in accordance with the name of the key. no objectives hereStudent ran into an issue converting the position to an integer too early and got:
+
+```
+1) ./bin/move executing a CLI Application calls move passing the user input
+Failure/Error: run_file("./bin/move")
+# received :move with unexpected arguments
+expected: (anything, "1", *(any args))
+got: ([" ", " ", " ", " ", " ", " ", " ", " ", " "], 1, "X")
+```
+
+We can change that stub to be less specific...need objectivesthe link to fork this lab on the learn web development track is brokenRack uses localhost as default, but that doesn't work in Nitrous. In order to preview, you have to bind host 0.0.0.0, and then you can use the Nitrous preview. - [x] Uses partials
+ - [x] No longer matches the `README`. Remove the post/author stuff and just do the ingredient stuffHello, for one of the methods in the lab you need to use either "GROUP BY" or "MAX" and neither is mentioned in the lesson.  I found them both in the extra resources but the info is buried pretty deep and harder to understand than learn usually makes it. - DonAtt! to developers of the course. The current topic has an error in a year, at the end of the task. The proposed code doesn't work:
+  "2016 - birth_year", use 2015 to pass it. 
+The previous year has passed, apparently, didn't happen to change it in the task yet. 
+Thank you.I'd be careful with language here.  It's important to be clear that jquery IS javascript, it's written in javascript, and just uses the native browser API in JS.  
+
+For example, this line, "we want to separate out our JavaScript and jQuerys" makes me think this is two different things.The final code snippet reads:
+
+class UserItem < ActiveRecord::Base belongs_to :users belongs_to :items end
+Those symbols should be singular, so :user and :itemI don't think we should talk about jquery this as it confuses what's happening.  jquery will manually behind the scenes set the this value for us.
+
+There is actually a really great way to refactor the above example using this. We're calling the on function on the class pix. Because of that fact, we have access to this inside of the function, and can replace part of$('.pix').addClass("tasty"); with this:
+
+so in this case the reason we can use this is because jquery set it to be the element clicked on
+its probably worth going through the standard ways this works and then talking about how it works differently with jqueryJust a note to say that google maps has changed their interface since this video was recorded.  Instead of a little gear in the bottom right corner, you click on the triple-bar icon in the top left.  Everything else was the same though.The README asks you to define a method called `program_names` but later refers to it as `program_schools`. Our solution contains models defined in app.rb. That is an anti-pattern and we should have a proper environment with a models directory or make this explicit.The tests require specific property names (e.g., birthCity) that are not specified in the instructions. (So someone might do, e.g., cityOfBirth instead and have the tests fail for that reason)Students are commonly finishing the lab, and then getting really upset when the spec has all different class names, prodding them to sit there and tweak everything so it passes. This is a waste of their time. We should instruct them on which names to use in the README. goes over form_tag and form_for, which is great. But then it talks about fields_for, accepts_nested_attributes_for, collection_check_boxes, and collection_select, which at this point in the curriculum, don't really make any sense yet. As a complete beginner, lessons are more confusing when they are bogged down by extra information that doesn't directly pertain to them. We use those form helpers later on, so explanations at those points would be more helpful.Out of the box, the lab looks like this:
+
+```
+var tweetShortener = {
+    wordSubstituter: function(){},
+    bulkShortener: function(){},
+    selectiveShortener: function(){},
+    shortenedTruncator: function(){},
+};
+```
+This suggests to students that we should build the constructor functions in to the object directly instead of using the prototype construction (which we learned was a better practice). If we change things around to use the prototype constructor:
+```
+function TweetShortener(){}
+
+TweetShortener.prototype.wordSubstituter = function(tweet){
+}
+
+TweetShortener.prototype.bulkShortener = function(tweets){
+}
+
+TweetShortener.prototype.selectiveShortener = function(tweet){
+}
+
+TweetShortener.prototype.shortenedTruncator = function(tweet){
+}
+```
+
+we understandably get an error because `tweetShortener` that is bing called on in the tests no longer exists:
+```
+ReferenceError: tweetShortener is not defined
+```
+
+Fix:
+Add this line to every test to create a new object with the constructor function and use the alias `tweetShortener` which the test already uses:
+```
+var tweetShortener = new TweetShortener()
+```Under the 'Testing' section, there is some sample code that reads:
+
+```
+    class PostPolicyTest
+      test "users can't update others posts" do
+        amethyst = users(:amethyst)
+        post = posts(:garnet_private)
+        expect(post.user).not_to eq(methyst)
+        expect(PostPolicy.new(amethyst, post).update?).to be false
+      end
+    end
+```
+
+It would make sense if online 5, instead of `expect(post.user).not_to eq(methyst)` it read `        expect(post.user).not_to eq(amethyst)`. The user 'methyst' doesn't exist, but user 'amethyst' does exist, and is not the creator of the post.
+
+I'm not sure if this edit right, but students could be confused, thinking that the 'amethyst' IS actually the posts user. If this edit is right, I can edit the lesson to save you guys some time ^^
+Towards the end, I think the explanation of scope is pretty jumbled.
+
+Seems like we are jumping btwn points.
+
+A point that is lost is that when you have a variable defined in a different scope, it is pointing to a different variable. Simple point, but seems to be lost in the current explanation.Missing files to fork and code along with this lesson. Code along states that local tests have to be passed but there are no tests for this exercise.Can we add an `elsif` branch? Maybe by using the `if` branch to check for a specific phrase or (to practice scope) checking if the method has been called twice in a row with all caps?Current order:
+ - SQL Joins Code Along: https://learn.co/tracks/full-stack-web-development/sql-structured-query-language/table-relations/sql-joins
+ - SQL Joins Lab: https://learn.co/tracks/full-stack-web-development/sql-structured-query-language/table-relations/sql-crowdfunding-lab
+ - SQL Complex Joins ReadMe: https://learn.co/tracks/full-stack-web-development/sql-structured-query-language/table-relations/sql-complex-joins
+
+A @reifnotreef pointed out that it might make more sense to do ReadMe - CodeAlong - Lab instead:
+ - SQL Complex Joins ReadMe: https://learn.co/tracks/full-stack-web-development/sql-structured-query-language/table-relations/sql-complex-joins
+ - SQL Joins Code Along: https://learn.co/tracks/full-stack-web-development/sql-structured-query-language/table-relations/sql-joins
+ - SQL Joins Lab: https://learn.co/tracks/full-stack-web-development/sql-structured-query-language/table-relations/sql-crowdfunding-lab
+
+@AnnJohn The introduction of using 'pry' at the very end of this lab is a bit terse and is not congruent with the clearly detailed explanations in the rest of the labs. Perhaps an explanation of the tool or a prompt of the use of the tool to see its effect would better suffice to adequately introduce 'pry' to novice programmers.The first objective reads:
+
+`Download the latest version of Angular 1.x`
+
+But no instructions are provided. Also at the end of the lesson, students are asked to visit `index.html` without instructions on how to start the app:
+
+```
+Next, we need to tell Angular about our controller. Add this to the bottom of MainController.js:
+
+angular
+  .module('app')
+  .controller('MainController', MainController);
+HELLO, YOUR NAME!
+
+Now open up index.html in Google Chrome and you should see Hello, your name! Wow - our first small Angular application. ```There is no redirect happening here.  If you follow the spec description not the implementation it suggests to use a redirect not a render.  In Sinatra there is a difference between redirect and render.  Please be more explicit.
+
+```ruby
+    context "changing a song's artist" do
+
+      it "updates the song's artist" do
+        fill_in "Artist Name", with: "Some Nobody"
+        click_on "Save"
+
+        expect(page).to have_content("Song successfully updated.")
+        expect(page).to have_content(song_name)
+        expect(page).to have_content("Some Nobody")
+      end
+
+      it "redirects to the song show page" do
+        fill_in "Artist Name", with: "That singer"
+        click_on "Save"
+        expect(page.current_path).to eq("/songs/that-one-with-the-guitar")
+      end
+    end
+```### EDIT ###
+Others have raised the issue as well - didn't see that first.
+#####
+
+I have gone through the curriculum in order and haven't skipped around (as far as I know).  The CSS responsive layout quiz is asking me about Sprites, but I have yet to learn anything about them in the material.
+
+Thanks,
+MichaelThe spec_helper required "GITHUB_CLIENT" in order to pass, whereas previous tutorials instructed the use of "[SITENAME]_CLIENT_ID."
+
+Not a big deal, but it was a confusing hangup that took an hour to resolve.The example states:
+
+> In order to manipulate or operate on each element of a nested array, we must iterate down into that level of the array. For example, if you run the following code in IRB:
+```
+nested_students.each do |student_array|
+  puts student_array
+end
+```
+You will have outputted:
+```
+["Mike", "Grade 10", "A average"]
+["Tim", "Grade 10", "C average"]
+["Monique", "Grade 11", "B average", "Class President"]
+```
+
+However, IRB gives a different result:
+
+```
+2.2.4 :001 > nested_students = [
+2.2.4 :002 >       ["Mike", "Grade 10", "A average"],
+2.2.4 :003 >       ["Tim", "Grade 10", "C average"],
+2.2.4 :004 >       ["Monique", "Grade 11", "B average", "Class President"]
+2.2.4 :005?>   ]
+ => [["Mike", "Grade 10", "A average"], ["Tim", "Grade 10", "C average"], ["Monique", "Grade 11", "B average", "Class President"]]
+2.2.4 :006 > nested_students.each do |student_array|
+2.2.4 :007 >       puts student_array
+2.2.4 :008?>   end
+Mike
+Grade 10
+A average
+Tim
+Grade 10
+C average
+Monique
+Grade 11
+B average
+Class President
+ => [["Mike", "Grade 10", "A average"], ["Tim", "Grade 10", "C average"], ["Monique", "Grade 11", "B average", "Class President"]]
+```
+
+In order to achieve the output given in the example, one must use `#inspect`:
+
+```
+2.2.4 :009 > nested_students.each do |student_array|
+2.2.4 :010 >     puts student_array.inspect
+2.2.4 :011?>   end
+["Mike", "Grade 10", "A average"]
+["Tim", "Grade 10", "C average"]
+["Monique", "Grade 11", "B average", "Class President"]
+ => [["Mike", "Grade 10", "A average"], ["Tim", "Grade 10", "C average"], ["Monique", "Grade 11", "B average", "Class President"]]
+```
+
+Therefore, this section should be revised.1. The lab says that all we need to do is comment out "require_relative '../lib/concerns/memorable'", but the current environment.rb file just has "require_relative '../lib/memorable'" even though we're told to create a concerns folder (same issue for all three modules).
+
+2. In the Memorable module, we're told to put the count, reset_all, and find_by_name methods. find_by_name is harder to write than the other two because it's not exactly the same in both classes (due to the class-specific array variables). find_by_name is then covered in the next section of the instructions, where we're told to put it in the Findable module. A little clarification would be great here!
+
+Thanks!This jumps right into string formatting and interpolation, without going in depth into the why. Could you add some more context into that first section. i.e. after this sentence "String interpolation lets us pass different data into a string, which is faster and more convenient than keeping track of different pieces of string and concatenating them ourselves" showing and example of how to do something without formatting and interpolation and showing the pains with that, so that it sets you up for the rest of the content. There are some issues that are inherent on many of these labs (including this one) that I thought I would raise. The videos are well made and the narrator very good. However, they were made awhile back and the instructions are misleading often times. For example, the creation of the Carousel in this lab does not work as in the video until the images are added to the Bootstrap code later in the video. Before adding the images, the carousel looks smaller (height wise) that it does in the video leading one to believe that it was done incorrectly when in fact it was not and with the additions of the pictures later all is good. I personally spent about 2 hours trying to figure out what went wrong with my carousel code before moving on to more of the video, so essentially I wasted those hours for nothing which is not good for any of us. I asked for help on the learn site and another student chimed in that he had the same problem the previous night and it also cost him a lot of time before he realized what was going on and related it to me. 
+
+The lab videos do not make reference to Nitrous etc. and so the instructor references creating branches and merges that are not necessary for many people and new students might not understand that you have to read between the lines and use the Learn environment to fork and clone the new repositories for instance. I found myself manually forking and cloning as well as adding, committing and  pushing the repositories and then creating the pull requests via github so that the labs could be completed without Nitrous. This was confusing to me at first and probably will be to others now and in the future.
+
+Lastly, the last two labs I have worked on, had no files created for them as most of the labs do. I get that part of these labs, including this one was to create index and property files and the code along to get practice, and thats great. However, there are assets that still need to be there (image files in this case as well as the js files for the Bootstrap jQuery etc.. This is not mentioned at all in the labs and this can be and surely will be a sticking point with new coders wondering why there code may not work since those files are not there in the labs from the start. 
+
+As time goes on we will all learn enough to get better at improvising and making up for the gaps in the old videos versus the newer course updates but I know it has cost me extra precious hours that were unnecessary. I do not mind the effort mind you, I enjoy solving problems and I think much of this would be explained in a classroom setting, but with us online students it makes it more challenging. Maybe an addendum to the lessons and labs can mention things like this to make sure the students understand exactly what is needed would help a lot. I hope this has been constructive feedback as I really like the program and hope to do very well and hope others do too. Thanks for the consideration.When I start the lab in Learn IDE, I get the following:
+![image](https://cloud.githubusercontent.com/assets/18332476/15622531/9622575c-2437-11e6-9d1d-6a2c294cf513.png)
+
+
+I've been doing the lessons in order, so I'm not sure if this lab is out of order?  Also, it covers methods using hashes, but we haven't been introduced to them as yet.  I checked the order of the lessons and we cover hashes right after this lab.  I'm not sure if the point here is to complete our own research?
+
+Or are we supposed to have access to Collections_Practice_vol_1 instead of this and vol_2 was supposed to come later on?This applies to most of the labs related html/css videos. It seems in the videos he is instructing students to create branches from a directory he is working on from the beginning of the html course. However, when forking the lab, everything is essentially already set up on Master. This seems like it could cause confusion for student on the IDE that don't need to create branches of the repo.
+
+I don't think this is anything major but is a small inconsistency throughout the course.this and the seven other lessons after this one are all around Git and Github. should we remove this entire unit? 
+
+https://github.com/learn-co-curriculum/git-resolving-conflicts
+https://github.com/learn-co-curriculum/git-delete-unstage-ignore
+https://github.com/learn-co-curriculum/git-branches
+https://github.com/learn-co-curriculum/git-forking-cloning-pull-requests
+https://github.com/learn-co-curriculum/quiz-git
+https://github.com/learn-co-curriculum/local-testing-with-green-onion --- this discusses testing
+
+
+
+cc @matbalez @jmburges  1) You say JS uses floats by default. What is a float? Much easier to just say Numbers in Javascript are just like numbers you'd think of. While in some languages there is a distinction between numbers with decimal points (like `3.14`) and numbers without decimal points (like `3`). JS doesn't distiguish. Everything is a number!
+
+2) All of the code you use, uses functions and comparison and returns. They don't know what *any* of those things are. 
+
+3) At this juncture, why is it important for them to learn about the intricacies of float comparison?References to `brew`/`homebrew` are confusing for PC users. It is not clear they should be using the IDE.  @PeterBell The `open .` command which opens the files in the computer's file browser doesn't work in the IDE. Is there an equivalent? 
+
+Also in Grover's video, using `open .` then leads to a .DS_Store file that gets added to the repository. This doesn't happen in the IDE. 
+
+@pletcher do we need to include content on gitignore and the subsequent content after that in this lesson/course. If we didn't then that would mean removing the last video in the playlist so it would be a smooth process in cutting the content. 
+
+cc @loganhasson Can we talk a bit more about this lab at the end? 
+
+We don't have to tell them how to do it, but just some more explanation such as you're going to write "three (not sure how many offhand) functions." Use the tests to figure out how to do it. 
+
+Also in the index.js file can we just write the list of the functions and then comment in where they should write their code? 
+
+@jmburges @pletcher you intro the ternary operator in this lab with "Remember the ternary operator?" but I do not think that it was previously defined.
+

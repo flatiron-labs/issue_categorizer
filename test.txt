@@ -1,0 +1,559 @@
+This lab should use the new MochaJS test flow
+The lab shows question 4 being the swap method and question 5 being the reverse method but the rspec tests are reversed (4 is reverse and 5 is swap) so there will be confusion even though in the end all tests have to be run anyway.
+"In line 5 of spec/models/city_spec.rb, a new City object, ""new_york_city,"" is created.
+
+In the following lines, the ""new_york_city"" variable is referenced incorrectly as ""nyc,"" causing the tests to fail:
+- https://github.com/learn-co-students/flatiron-bnb-associations-web-0416/commit/2142ccffa831a3f9c3be26acf2e0b4c0a523c872#diff-1bbe595dc9e200159b52abcb0bd2972bR20
+- https://github.com/learn-co-students/flatiron-bnb-associations-web-0416/commit/2142ccffa831a3f9c3be26acf2e0b4c0a523c872#diff-1bbe595dc9e200159b52abcb0bd2972bR34"
+""
+"Tests can pass where the User can access the Login page from signup without a valid password if they leave the field blank.  
+
+`if (@user.username != """" ? true : false ) && (@user.password != """" ? true : false )
+      @user.save
+      redirect to '/login'
+    end
+      redirect to '/failure'` 
+
+Will pass the tests even if the field is blank because it will evaluate as true."
+"last issue comment was correct, just checked against spec of https://github.com/learn-co-curriculum/rails-refactoring-apis-v-000
+whose spec's include 
+with(body: {""{\""name\"":\""a-new-repo\""}""=>nil}
+as opposed to, which is in this current lab and appears to cause the error message described in the last issue
+with(body: {""{\""name\"":\""a-new-repo\""}""=>true}
+"
+"It seems that the span element wasn't getting clicked in the specs, and therefore wasn't able to test if `'Thank you for clicking!'` was being displayed in the browser. To correct this, all I had to do was add `span.click();`. See line 13 below: 
+
+<img width=""1440"" alt=""screenshot 2016-03-26 04 16 56"" src=""https://cloud.githubusercontent.com/assets/13259201/14059029/a8c11cea-f309-11e5-9c10-ad4170fde90d.png"">
+
+Also, since you aren't testing the text that's displayed in the directive variable, you could condense the spec to the following: 
+
+<img width=""898"" alt=""screenshot 2016-03-26 04 25 15"" src=""https://cloud.githubusercontent.com/assets/13259201/14059051/cd05b754-f30a-11e5-9a1f-fada2c528a0b.png"">
+"
+""
+"In the lesson, after defining fizzbuzz with:
+
+def fizzbuzz
+end
+
+there is some info. about how rspec still gives a no method error and that you can fix this by putting:
+require_relative '../fizzbuzz.rb'
+
+On my machine, though, it seems that RSpec was able to find fizzbuzz.rb and gave me the ArgumentError even before adding the require_relative line to fizzbuzz_spec.rb
+
+I'm on a mac and rspec -v gives me 3.4.2
+
+Thanks,
+Michael"
+"Currently the mock vehicle used for testing in FISVehicleSpec is initialized with a topSpeed value of 0. In order to test the -[FISVehicle increaseSpeed] and -[FISVehicle brake] methods, topSpeed should be nonzero."
+"Doctor
+  #patients
+    has many patients, through patients
+
+should be:
+
+Doctor
+  #patients
+    has many patients, through appointments
+
+
+"
+"The tests look for `<form>` in user_input.rb when you actually need an opening form tag that at the very least has an action attribute. The test should either just test for the presence of `</form>` or use `have_selector(""form"")` instead of `include(""<form>"")`."
+"The puppy spec checks for a puppy's name three times in a row and expects different answers. It should be checking for name, then breed, and then age, not name three times in a row."
+"using PRINT executes the board with no newlines which is wrong:
+
+    |   |   -----------   |   |   -----------   |   |   => nil
+
+should be PUTS, the local tests should check for that."
+"Spec student_spec.rb line: 136 reads:
+
+```first_student = Student.first_student_in_grade_10```
+ 
+Throws following error:
+
+<img width=""753"" alt=""screen shot 2015-12-05 at 7 36 10 pm"" src=""https://cloud.githubusercontent.com/assets/14326883/11609468/81556e88-9b87-11e5-9754-d1d2f3d66a3f.png"">
+
+Fix at line: 136:
+
+ ```first_student = Student.first_student_in_grade_12```"
+"Step 1 asks students to run the 'ruby bin/contacts' to hit the pry in the code. The problem is that neither 'bin/contacts' or its required '../lib/contacts' have argument to pass to #remove_strawberry(contacts). This results in an error:
+```
+...../nested-hash-iteration-code-along-v-000/lib/contacts.rb:16:in `remove_strawberry': wrong number of arguments (0 for 1) (ArgumentError)
+	from bin/contacts:3:in `<main>'
+```
+This can be corrected by asking students to run 'rspec spec/contacts_spec.rb', or 'learn' as these will run the test suite, which does pass an argument."
+"I was answering a student's question, and it came up that 7/8 of the spec tests were being passed without even needing to use the keyword with code along these lines:
+
+def my_each(array)
+  counter = 0
+  while counter < array.length do
+    puts ""hello""
+    counter += 1
+  end
+  return array
+end
+
+It might be worth making the spec tests more specific to the yield keyword for the various labs in this section."
+"If I'm understanding this right, in the below code, the expectation should be corrected to: expect(contents).to_not include(""while"" && ""puts"")
+
+```
+  it ""does not call on while or puts"" do 
+    file = File.read('./my_each.rb')
+    contents = file.split("" "")
+    expect(contents).to_not include(""while"" || ""puts"")
+  end
+```
+
+I apologize if I'm wrong. Thanks for the awesome lessons!"
+"spec/spec_helper.rb file line 1: require_relative '../lib/apple'
+
+but there is no '../lib/apple'.
+
+tests only run if line is commented-out (or that file is created, obviously)."
+"Hi! The example provided in the task itself says method ""take_a_number"" should return the following:
+take_a_number(katz_deli, ""Matz"") #=> 3
+However, spec expects the following: ""expect($stdout).to receive(:puts).with(""Welcome, Ada. You are number 1 in line."")""
+Probably, the task's example should be corrected."
+"which works, but there are multiple correct answers."
+Those will never work sadly 
+"Hi there! The instructions for this lab state that #my_each should use a while loop
+
+![instructions](https://cloud.githubusercontent.com/assets/12042459/11409364/3c0020aa-9374-11e5-8236-1b5d28ca05ed.png)
+
+but there is a test that it ""does not call on while or puts""
+
+![test](https://cloud.githubusercontent.com/assets/12042459/11409372/52e93568-9374-11e5-8d76-37023016756f.png)
+
+which leads to the following rspec error when using ""while"" within the method
+
+![rspec_output](https://cloud.githubusercontent.com/assets/12042459/11409383/62458a66-9374-11e5-9107-81904558fa76.png)
+
+
+"
+it just checks the existence of the form. Doesn't check the action attribute or better yet use capybara to enter info!
+"2nd spec (puts status => error) passes as a test on its own - so the student following the instructions would need to uncomment lines 11-12 of ...peach.rb to follow the instructions, but then (not documented in the instructions) need to recomment them out to submit it as completed."
+"I might have missed something, but this lesson wants you to have a method change the size of the input array. I checked the documentation for methods and do not see a way to have a parameter be in/out. I changed my spec file to fix this problem.
+![spec modification](https://cloud.githubusercontent.com/assets/15305066/11609338/7231341e-9b41-11e5-9320-842f622c1e2a.PNG)
+"
+"The tests assume that the word once should be translated as eOncay, but assuming words starting with vowels get an ay appended to the end, it should be Onceay. I'm not sure we're at the level yet to create different cases based on irregular pronunciation... "
+"In the ""for"" test within the spec, the output phrase includes an extra %{...} around the text in its message. This doesn't break anything, but was a little confusing at first because I thought maybe my test was failing because it was outputting the wrong message. Did get me to dig deeper into the test code, though..."
+"Your code:
+<img width=""461"" alt=""screen shot 2015-12-28 at 4 03 07 pm"" src=""https://cloud.githubusercontent.com/assets/14082893/12027515/83ecd3fa-ad7c-11e5-92e3-f0f92a6b6534.png"">
+
+My code: 
+<img width=""549"" alt=""screen shot 2015-12-28 at 4 03 46 pm"" src=""https://cloud.githubusercontent.com/assets/14082893/12027520/9c3d3076-ad7c-11e5-9840-56bc15992a74.png"">
+
+My `index.html`:
+<img width=""1043"" alt=""screen shot 2015-12-28 at 4 04 31 pm"" src=""https://cloud.githubusercontent.com/assets/14082893/12027528/b780eaee-ad7c-11e5-9ac2-ac4573bbfb66.png"">
+
+I really hope that all these issues I am raising improves this curriculum.
+"
+"It says below in the middle of the assignment From lines 41-52, but 01_book_spec.rb only has 15 lines. I think it should say Lines 2-13
+
+""I really have no clue how in the world my array would magically contain ""Thriller"", so let's look at the specific test to figure out what's going on. From lines 41-52 in spec/01_book_spec.rb:""
+
+"
+"Test suite should include a check that the User model utilizes `has_secure_password`. Project should not be submitted until this is implemented.
+
+cc @aviflombaum "
+"I feel like the ""projects"" table should be called ""projects"" in the test spec instead of ""project"". I kept getting errors and I couldn't figure out why, but I eventually realized that its because there was a discrepancy between what the table was called in the error message and what the spec itself was expecting"
+"Our play/turn tests need to be better about defining the expectations of `over?` to rely on `draw?` which relies on `full?`
+
+```ruby
+def full?(board)
+  board.all? do |taken|
+    taken != "" ""
+     end
+end
+
+def draw?(board)
+  won?(board) == false
+end
+
+def over?(board)
+    won?(board) || full?(board)
+end
+```
+
+is technically right but creates an infinite loop because
+
+```ruby
+    it 'checks if the game is draw after every turn' do
+      board = ["" "", "" "", "" "", "" "", "" "", "" "", "" "", "" "", "" ""]
+      allow($stdout).to receive(:puts)
+      allow(self).to receive(:gets).and_return(""1"", ""2"", ""3"")
+    
+      expect(self).to receive(:draw?).at_least(:twice).and_return(false, false, true)
+    
+      play(board)
+    end
+```
+
+relies on stubbing draw, implying over? must check draw.
+
+This passes:
+
+```
+def full?(board)
+  board.all? do |taken|
+    taken != "" ""
+     end
+end
+
+def draw?(board)
+  !won?(board) && full?(board)
+end
+
+def over?(board)
+  won?(board) || draw?(board)
+end
+```
+
+which should be better about the tests"
+"`spec/features/users/sign_in_spec.rb` was missing the following line:
+```
+click_button 'Log in'
+```
+on lines:
+16
+28
+40
+52
+see link below for implementation
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+`spec/features/users/sign_out_spec.rb` was missing:
+```
+click_link 'Sign in'
+```
+on line 14.
+see link below for implementation
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
+
+`pec/features/visitors/sign_up_spec.rb` uses this format to sign-up:
+```
+sign_up_with('test@example.com', 'please123', 'please123')
+```
+The problem is that it raises the following error because there is a button in the layout with the name text as the form 'Sign up':
+```
+Failures:
+
+  1) Sign Up visitor cannot sign up without password
+     Failure/Error: sign_up_with('test@example.com', 'please123', 'please123')
+     Capybara::Ambiguous:
+       Ambiguous match, found 2 elements matching button ""Sign up""
+     # /Users/Roberto/.rvm/gems/ruby-2.2.3/gems/capybara-2.4.4/lib/capybara/node/finders.rb:38:in `block in find'
+     # /Users/Roberto/.rvm/gems/ruby-2.2.3/gems/capybara-2.4.4/lib/capybara/node/base.rb:84:in `synchronize'
+     # /Users/Roberto/.rvm/gems/ruby-2.2.3/gems/capybara-2.4.4/lib/capybara/node/finders.rb:30:in `find'
+
+```
+One fix is to use the long version. This example works:
+```
+scenario 'visitor can sign up with valid email address and password' do
+   visit new_user_registration_path
+      fill_in 'user_email', with: 'test@example.com'
+      fill_in 'user_password', with: 'please123'
+      fill_in 'user_password_confirmation', with: 'please123'
+      within('.new_user') do
+        click_button 'Sign up'
+      end
+     txts = [I18n.t( 'devise.registrations.signed_up'), I18n.t('devise.registrations.signed_up_but_unconfirmed')]
+     expect(page).to have_content(/.*#{txts[0]}.*|.*#{txts[1]}.*/)
+  end
+```
+This can be modified to fit every test in this spec file. See the modifications live here:
+https://github.com/learn-co-students/devise_lab-v-000/compare/master...onyoo:master"
+"```
+ Music Library CLI allows a user to list songs
+     Failure/Error: expect(music_libray_controller).to receive(:gets).at_least(:once).and_return(""list songs"", ""exit"")
+       (#<MusicLibraryController:0x007ffcd3c25060>).gets(*(any args))
+           expected: at least 2 times with any arguments
+           received: 1 time with any arguments
+```
+
+If they don't loop in their `call` method and only ask for user input once the failure is vague and hard to debug. We should write a test that explicitly asks for an input gets loop within call - something like `it 'loops and asks for user input until they type in exit`."
+"Inside the instructions for the lab, the lab wants us to create a column for the ""Landmarks"" table called year_completed. In the instructions, rows for the chart show the year 50 B.C., which would imply there needs the column value needs to be a string, but the test ""has a name and a year_completed"" is looking for number values. Either the test or that entry on the chart needs to be changed."
+"In Rspec: `find_by_name` description it mentions ""student"" where the lab is concerning ""dogs"":
+```
+#find_by_name
+F    returns an instance of student that matches the name from the DB
+```"
+"Tests/Routes.spec.js:13-14 read:
+```
+it('should have the correct URL', function () {
+			state = $route.routes['/user/:id'];
+```
+While this is correct, students may be inclined to define the route as '/user/:name' in config. After all the url reads `http://localhost:8080/#/user/liam`, where 'liam' is the first name. If they make the change, all 3 tests fail because the symbol `:id` is not defined (`:name` is). May be worth a note on the readme, and or update to test."
+"The following images do not match those found in the test. One link actually doesn't even open an image anymore. Please update the sources or update the screenshot found in the skins folder to allow tests to pass. 
+
+<img src=""http://pictures.wayn.com/photos/180c/034546087_237927497.jpg"" alt=""Adam"">
+  <img src=""http://38.media.tumblr.com/70ace162d8f0654f3239aa7447a21870/tumblr_muvabkXjsz1qz6h81o1_1280.jpg"" alt=""Avi"">
+
+This file is no longer accessible. "
+"all_students_in_grade_X
+README describes as follows: 
+### The `.all_students_in_grade_X` Method
+This is a class method that takes in an argument of grade for which to retrieve the roster. This method should return an array of all students for grade `X`.
+
+
+However, I could not pass an argument to this method without getting failure. 
+Below is the code I ended up using, but it doesn't seem to satisfy the spirit of the method as named. 
+i.e....isn't it supposed to provide functionality for retrieving an array of students given an argument of a grade? 
+
+#################################################################
+ CODE I wanted to use: 
+
+  # def self.all_students_in_grade_X(argument)
+  #   sql = <<-SQL
+  #     SELECT * FROM students WHERE grade = ?
+  #   SQL
+
+  #  DB[:conn].execute(sql, argument)
+  # end
+ 
+#################################################################
+CODE that passed: 
+  
+def self.all_students_in_grade_X
+    sql = <<-SQL
+      SELECT * FROM students WHERE grade = ?
+    SQL
+
+   DB[:conn].execute(sql, ""10"")
+  end
+"
+"Test looks for:    #average_student_gpa_for_9th_grade
+
+The ruby method is called:      #average_gpa_for_9th_grade"
+"The student_spec.rb file is missing an argument.
+line 185 should look like this:
+`tenth_grade = Student.all_students_in_grade_X(10)`
+That's it, that should fix it. :)"
+"I passed three main tests, and wanted to skip the bonus tests. But the local test indicator is still red and indicates I failed the local test.  The bonus tests are really confusing, so I'd like to skip those unless there is a clear instruction regarding how I can solve the bonus tests.  I am not even sure the spec file is written right.
+
+In the bonus spec test, there is a line;
+
+expect(@db.execute(""knows_default_hp"").flatten.first).to eq(60)
+
+But, ""knows_default_hp"" does not look like any kind of sql syntax."
+"1st Test inputs ""Hello there, and how are you?"" and expects ""olleH *,ereht* dna woh era ?uoy""
+2nd Test inputs ""Hi again, just making sure it's reversed!"" and expects ""iH *niaga,* tsuj gnikam erus s'ti !desrever""
+
+The comma in the first test is reversed but the comma in the second test remains at the end of the word. Two inconsistent expectations."
+"describe ""#long_planteer_calls"" do
+    it ""returns true if any calls are longer than 4 characters"" do
+      long_planteer_calls = [""earth"", ""wind"", ""fire"", ""water"", ""heart""]   -->  variable is long_planteer_calls
+      expect(long_planteer_calls(long_planeteer_calls)).to eq(true) -->  variable is long_planeteer_calls
+    end
+
+Misspelled variable causes test to fail due to undefined variable no matter what.
+
+Segment can be found in lines 41-45 of cartoon_collections_spec.rb"
+"My solution to the first question was marked as wrong, even though the expected result matches the result from my code.  I tested my code in IRB and it is correct.  As such, I think there may be something wrong with the rspec test.  Thank you.
+
+<img width=""611"" alt=""screen shot 2015-12-16 at 4 46 13 pm"" src=""https://cloud.githubusercontent.com/assets/15949020/11855122/497ec5c6-a416-11e5-9109-c720be5c04d9.png"">
+"
+"Please forgive me for bothering, but I'm stuck thinking that I already got it! lol please, if i may beg someone to review and just tell me that i have it right or wrong. Not the answer!!!
+
+<h1> Thank you so much your time </h1>"
+"The test on line: 119 should look for ""Pat"" because she is in grade 12, not ""Sam"":
+
+```
+    describe '.first_student_in_grade_12' do
+      it 'returns the first student in grade 12' do
+        pat.name = ""Pat""
+        pat.grade = 12
+        pat.id = 1
+        pat.save
+
+        sam.name = ""Sam""
+        sam.grade = 10
+        sam.id = 2
+        sam.save
+
+        jess.name = ""Jess""
+        jess.grade = 10
+        jess.id = 3
+        jess.save
+
+        first_student = Student.first_student_in_grade_12
+        expect(first_student.id).to eq(2)
+        expect(first_student.name).to eq(""Sam"")
+      end
+    end
+```"
+"I believe for the spec:
+```ruby
+it '#selects_the_titles_of_all_projects_that_have_met_their_funding_goal' do
+      expect(@db.execute(selects_the_titles_of_all_projects_that_have_met_their_funding_goal)).to eq([[""My book on SQL"", 0], [""The next Inna-Gadda-Davida"", -142]])
+    end
+```
+the -142 should be 142. I had everything correct except I was returning 142 and not -142, including the other example. 142 also makes more sense given what the query is trying to accomplish."
+"not an expert on devise specs, but after running the migrations created by devise and testing the /users/sign_in route in the browser, the spec doesn't pass."
+The .find_or_create_by_name spec passes if you define the method but don't have it do anything. The test should be updated so if fails if the method doesn't find or create a song
+"def turn(board)
+  puts ""Please enter 1-9:""
+  input = gets.strip
+  move(board, input)
+  display_board(board)
+end
+
+I was able to get all tests to pass with this code.
+
+This repeatedly asks for an input until a valid input is given as desired, but after entering a valid input it calls #display_board as many times as it called #turn printing multiple boards. So if user inputs ""a"", then ""b"", then ""2"", it will ask the user to enter 1-9 until the ""2"" is entered, but then it will display the new board 3 times.
+
+I changed my code to this to get it working right:
+
+def turn(board)
+  puts ""Please enter 1-9:""
+  input = gets.strip
+  if move(board, input)
+     display_board(board)
+  end
+end
+
+
+"
+"The tests would fail and keep saying the current_user method was undefined for the application controller, even though I had written it in. I did some research and prepended the current_user method with the subject keyword in the spec file and that seemed to get it to register. I'm not fully sure if that's the right solution or how it works, but without it, it didn't seem current_user knew what class to be invoked upon."
+"Issue concenrs tictactoe.spec.js ln:433
+
+Lack of stub for click event on ln:457 will cause test to fail. As it stands the test will click the button, but lack of a stubbed request/response cycle will leave the test with no data to update the board with. The result is a get request that will fail to execute since it'll request for a database entry that does not exist.
+
+Suggested Solution:
+```
+     $('[data-gameid=""2""]').click()
+      
+      var data = {
+        game:{
+          id:2,
+          state: ["""",""X"",""O"","""",""O"","""","""","""",""""]
+        }
+      }
+
+      var response = {
+        ""status"": 200, 
+        ""contentType"": 'application/json',
+        ""responseText"" : JSON.stringify(data)
+      }
+      jasmine.Ajax.requests.mostRecent().respondWith(response);
+
+     expect($('[data-x=""0""][data-y=""0""]').text()).toBe("""")
+     expect($('[data-x=""1""][data-y=""0""]').text()).toBe(""X"")
+     expect($('[data-x=""2""][data-y=""0""]').text()).toBe(""O"")
+     expect($('[data-x=""1""][data-y=""1""]').text()).toBe(""O"")
+     ...
+```
+
+The added stub will provide the necessary data for student code to execute successfully (assuming no logical errors)."
+"application_controller_spec.rb
+
+should read something like 
+
+    it 'can change dog age' do
+      @dog = Dog.new(""rudolph"", ""mastiff"", 2)
+      @dog.age = 3
+      expect(@dog.age).to eq(3)
+    end
+
+currently reads
+
+    it 'can change dog age' do
+      @dog = Dog.new(""rudolph"", ""mastiff"", 2)
+      @dog. name = ""bessie""
+      expect(@dog.name).to eq(""bessie"")
+    end
+
+"
+"I'd like to add that you don't have to change these specs per say but if you want the pattern for params to be { student: { first_name: 'Sam', last_name: 'Wise' } } then the Fill In test for capybara for the form will be looking for only last_name not student[last_name].  I wonder what Learn.co's defacto standard is for params.  should we always nest the data?  and if so it would be nice if there was more consistency with it across some labs where possible.  Thank you.
+
+### As it is now with this pattern the student object will be nil.
+```ruby
+# ./spec/controllers/student_controller_spec.rb
+  describe ""POST create"" do
+    context ""with valid attributes"" do
+      it ""creates a new student"" do
+        expect{
+          post :create, { :student => { :first_name => ""Sam"", :last_name => ""Smith"" } }
+        }.to change(Student,:count).by(1)
+      end
+      
+      it ""redirects to the new student"" do
+        post :create, { :student => { :first_name => ""Sam"", :last_name => ""Smith"" } }
+        expect(response).to redirect_to Student.last
+      end
+    end
+  end
+```
+
+### with these changes the spec is consistent with whats expected to work with the integration tests.
+```ruby
+require 'rails_helper'
+
+describe StudentsController do
+
+  describe ""POST create"" do
+    context ""with valid attributes"" do
+      it ""creates a new student"" do
+        expect{
+          post :create, { :first_name => ""Sam"", :last_name => ""Smith"" }
+        }.to change(Student,:count).by(1)
+      end
+
+      it ""redirects to the new student"" do
+        post :create, { :first_name => ""Sam"", :last_name => ""Smith"" }
+        expect(response).to redirect_to Student.last
+      end
+    end
+  end
+
+end
+```"
+"The readme says: ""Ensure that only administrators can update or destroy users."" This is not tested in the specs."
+"Hi,
+In the spec titled 007_findable_songs_spec.rb, the test only seems to look for uniqueness but not for the ability to **create** a new Song object.  I did my best to add another check for this feature in my own spec file as seen below:
+"
+"Post.count
+#=> 4
+clickbait = Category.find_by(name: ""Clickbait"")
+#=> #<Category id=1>
+clickbait.posts.count
+#=> 3
+
+Line 3 in db/seeds.rb:
+  clickbait = Category.create!(name: ""Motivation"")
+
+Line 3: in rails console commands, should submit ""Motivation"" as value, not ""Clickbait""
+  clickbait = Category.find_by(name: ""Clickbait"")
+should be
+  clickbait = Category.find_by(name: ""Motivation"") #matching the seed
+  
+clickbait.posts.count will then return 3. otherwise it crashes.
+
+Please see attached.
+![bug](https://cloud.githubusercontent.com/assets/10204266/14962044/e089149c-106a-11e6-98f2-e4ae23d79ada.png)
+"
+"describe '#valid_move?' do
+    it 'returns true/false based on position' do
+      board = ["" "", "" "", "" "", "" "", ""X"", "" "", "" "", "" "", "" ""]
+
+      position = 0
+      expect(valid_move?(board, position)).to be_truthy
+
+      position = 4
+      expect(valid_move?(board, position)).to be_falsey
+
+      position = -1
+      expect(valid_move?(board, position)).to be_falsey
+    end
+  end
+
+board does not have a position 0 (zero), and position 5 is taken and not 4 "
+"This portion of the lab has you edit the spec file as it refers to the ID attribute. 
+In the early parts of the lab, the tests fail because spec file as written, is trying to find either an ID= ""title"" or content=""title (both work).    The code in the early parts of the lab, show ID = post_title and content=""post_content"" (both fail).   If you change either of them to ""title"" or ""content"" respectively, the tests pass. 
+
+So, we should either change the earlier code examples in the lab to ""test"" and/or ""content"" and then remove the last section where you correct the spec file, or remove the ""correcting of the spec file"" pasted below:
+
+This is all working on the page, however it broke some of our tests since it streamlined the ID attribute in the form, so let's update our spec:
+fill_in 'title', with: ""My post title""
+fill_in 'description', with: ""My post description""
+Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!"
+"trying to run the ""learn"" command during this lesson was a nightmare. It continuously brought up deprecation errors and warnings because of pry, which ultimately lead to me deleting all mention of it from the rspec methods. Also why do we need a music and a movie rspec? They both do the same thing...."
