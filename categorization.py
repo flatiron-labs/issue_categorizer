@@ -108,7 +108,11 @@ def get_issue_category(issue, lexicons):
 
     return max(issue_scores, key=issue_scores.get)
 
-@app.route('/',methods=['POST'])
+@app.route('/',methods=['GET'])
+def root():
+    return Response("200 OK")
+
+@app.route('/categorize_issue',methods=['POST'])
 def issue_request():
     impl = Lexicon("impl")
     prod = Lexicon("prod")
