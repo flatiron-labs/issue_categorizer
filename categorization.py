@@ -112,6 +112,8 @@ def get_issue_category(issue, lexicons):
 def root():
     return Response("200 OK")
 
+app.add_url_rule('/favicon.ico',redirect_to=url_for('static', filename='favicon.ico'))
+
 @app.route('/categorize_issue',methods=['POST'])
 def issue_request():
     impl = Lexicon("impl")
