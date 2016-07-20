@@ -1,1 +1,1 @@
-web: gunicorn issuecategorization.wsgi --log-file -
+web: flask run
