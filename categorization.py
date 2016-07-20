@@ -3,23 +3,20 @@ import json
 from flask import Flask
 from flask import request
 from flask import Response 
-from http_parser.parser import HttpParser
-from urlparse import urlparse
+from flask import send_from_directory
+from flask import Flask, render_template
 from pg import DB
 import math
-from IPython import embed
 import operator
 import re
 from bs4 import BeautifulSoup
 import mistune
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-import nltk.data
 import string
 import sys
 from collections import Counter
 from nltk.stem.porter import *
-import socket
 
 db = DB(dbname='issue_categorization', port=5432)
 app = Flask(__name__)
@@ -111,8 +108,6 @@ def get_issue_category(issue, lexicons):
 @app.route('/',methods=['GET'])
 def root():
     return Response("200 OK")
-
-app.add_url_rule('/favicon.ico',redirect_to=url_for('static', filename='favicon.ico'))
 
 @app.route('/categorize_issue',methods=['POST'])
 def issue_request():
