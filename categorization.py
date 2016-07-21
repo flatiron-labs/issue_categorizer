@@ -5,7 +5,6 @@ from flask import Response
 from flask import send_from_directory
 from flask import Flask, render_template
 import json
-import pg
 import math
 import operator
 import re
