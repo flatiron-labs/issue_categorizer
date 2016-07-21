@@ -117,6 +117,10 @@ def get_issue_category(issue, lexicons):
 def root():
     return Response("200 OK")
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(app.root_path,'favicon.ico', mimetype='image/png')
+
 @app.route('/categorize_issue',methods=['POST'])
 def issue_request():
     prod = Lexicon("prod")
