@@ -1,6 +1,5 @@
 from __future__ import division
 import json
-import pg
 import math
 import operator
 import re
