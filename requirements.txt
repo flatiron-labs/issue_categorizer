@@ -1,3 +1,4 @@
 Flask==0.8
 BeautifulSoup4==4.4.1
 nltk==3.2.1
+psycopg2==2.6.2
