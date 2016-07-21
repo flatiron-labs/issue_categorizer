@@ -24,7 +24,6 @@ greenlet==0.4.10
 grip==4.2.0
 http-parser==0.8.3
 httplib2==0.9.2
--e git+https://github.com/OpenMDAO-Plugins/Hyperloop.git@2cb62cc1da39e7e4b25e7b709d916d68c7b5671c#egg=hyperloop
 ipykernel==4.3.1
 ipython==5.0.0
 ipython-genutils==0.1.0
