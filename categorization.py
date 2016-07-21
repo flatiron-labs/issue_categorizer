@@ -12,7 +12,6 @@ import os
 import string
 import sys
 import psycopg2
-import mistune
 from collections import Counter
 from bs4 import BeautifulSoup
 from IPython import embed
