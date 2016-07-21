@@ -88,7 +88,6 @@ sympy==1.0
 terminado==0.6
 tornado==4.4
 traitlets==4.2.2
-vboxapi==1.0
 virtualenv==15.0.2
 wcwidth==0.1.7
 websocket-client==0.37.0
