@@ -1,24 +1,29 @@
 from __future__ import division
-import json
 from flask import Flask
 from flask import request
-from flask import Response 
+from flask import Response
 from flask import send_from_directory
 from flask import Flask, render_template
-from pg import DB
+import json
+import pg
 import math
 import operator
 import re
-from bs4 import BeautifulSoup
-import mistune
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
+import os
 import string
 import sys
+import psycopg2
+import mistune
 from collections import Counter
+from bs4 import BeautifulSoup
+from IPython import embed
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 from nltk.stem.porter import *
 
-db = DB(dbname='issue_categorization', port=5432)
+#dbname =
+conn = psycopg2.connect(dbname='issue_categorization',port=5432)
+cur = conn.cursor()
 app = Flask(__name__)
 
 def parse_text(s):
@@ -54,19 +59,22 @@ def mproduct(f,l):
 class Lexicon:
     def __init__(self,name):
         self.name = name
-        self.size = db.query("SELECT count(*) from {:s}_words".format(name)).getresult()[0][0]
+        cur.execute("SELECT count(*) FROM {:s}_words".format(name))
+        self.size = cur.fetchone()[0]
 
     def has_member(self,s):
-        result = db.get_as_list("{:s}_words".format(self.name),where="word='{:s}'".format(s))
+        cur.execute("SELECT * FROM {:s}_words WHERE word='{:s}';".format(self.name,s))
+        result = cur.fetchall()
         if result != []:
             return True
         else:
             return False
 
-    def get_raw_count(self,word):
-        result = db.get_as_list("{:s}_words".format(self.name),where="word='{:s}'".format(word))
+    def get_raw_count(self,s):
+        cur.execute("SELECT * FROM {:s}_words WHERE word='{:s}';".format(self.name,s))
+        result = cur.fetchone()
         if result != []:
-            return result[0][2]
+            return result[2]
         else:
             return 0
 
@@ -111,8 +119,8 @@ def root():
 
 @app.route('/categorize_issue',methods=['POST'])
 def issue_request():
-    impl = Lexicon("impl")
     prod = Lexicon("prod")
+    impl = Lexicon("impl")
     test = Lexicon("test")
 
     raw_data = request.data
@@ -121,3 +129,7 @@ def issue_request():
 
     issue_json = json.loads(raw_data)
     return Response(get_issue_category(issue_json['issue'],(impl,prod,test)))
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(port=port)
