@@ -23,10 +23,7 @@ cur = conn.cursor()
 cur.execute("""
     drop schema public cascade;
     create schema public;
-
 """)
-
-#db = DB(dbname='issue_categorization', port=5432)
 
 def parse_from_file(filename):
     with open(filename) as f:
@@ -43,19 +40,17 @@ def parse_text(s):
     lang_filtered = [w for w in punc_filtered if not w in stopwords.words('english')]
 
     stemmer = PorterStemmer()
-    stemmed = []
-    for token in lang_filtered:
-        stemmed.append(stemmer.stem(token))
+    stemmed = [stemmer.stem(t) for t in lang_filtered]
 
     is_word = lambda x: re.match('[a-zA-z]+\Z',x) != None
     is_tick = lambda x: x != "`" and x != "``" and x != "```"
     words = filter(is_word,stemmed)
     words = filter(is_tick,words)
+
     return words
 
 
 if __name__ == '__main__':
-
     nltk.download('punkt')
     nltk.download('stopwords')
 
@@ -63,15 +58,16 @@ if __name__ == '__main__':
         cur.execute("CREATE TABLE {:s}_words(id serial primary key, word varchar not null, count int);".format(category))
 
         print "Making category {:s}".format(category)
+
         fname = category + ".txt"
         lex_words = parse_from_file(fname)
         weighted_words = dict(Counter(lex_words))
+
         print "Read {:d} words from {:s}".format(len(lex_words),fname)
-        for word,weight in weighted_words.iteritems():
-            #print "Updating {:s}, with weight {:d}".format(word,weight)
+
+        for word, weight in weighted_words.iteritems():
+            print "Updating {:s}, with weight {:d}".format(word,weight)
+
             cur.execute("INSERT INTO {:s}_words (word,count) VALUES (\'{:s}\',{:d})".format(category,word,weight))
-            #db.insert('{:s}_words'.format(category),row={'word': word, 'count': weight})
     conn.commit()
     conn.close()
-
-#embed()

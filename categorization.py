@@ -19,7 +19,6 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.porter import *
 
-#dbname =
 conn = psycopg2.connect(dbname='issue_categorization',port=5432)
 cur = conn.cursor()
 app = Flask(__name__)
@@ -32,23 +31,23 @@ def parse_text(s):
     lang_filtered = [w for w in punc_filtered if not w in stopwords.words('english')]
 
     stemmer = PorterStemmer()
-    stemmed = []
-    for token in lang_filtered:
-        stemmed.append(stemmer.stem(token))
+    stemmed = [stemmer.stem(t) for t in lang_filtered]
 
     is_word = lambda x: re.match('[a-zA-z]+\Z',x) != None
     is_tick = lambda x: x != "`" and x != "``" and x != "```"
-    words = filter(is_word,stemmed)
-    words = filter(is_tick,words)
+
+    words = filter(is_word, stemmed)
+    words = filter(is_tick, words)
+
     return words
 
-def msum(f,l):
+def msum(f, l):
     sig = 0
     for x in l:
         sig += f(x)
     return sig
 
-def mproduct(f,l):
+def mproduct(f, l):
     pr = 1
     for x in l:
         pr *= f(x)
@@ -85,29 +84,29 @@ class Lexicon:
             return 0
 
 def get_issue_category(issue, lexicons):
-    impl,prod,test = lexicons
+    impl, prod, test = lexicons
     D = set([impl,prod,test])
 
     issue_words = parse_text(issue)
 
     prod_score = msum(lambda w : (
         len(D) * prod.weight(w) / (msum(lambda lex: lex.weight(w), D - set([prod])) + 1)
-        ),issue_words)
+    ),issue_words)
 
     test_score = msum(lambda w : (
         len(D) * test.weight(w) / (msum(lambda lex: lex.weight(w), D - set([test])) + 1)
-        ),issue_words)
+    ),issue_words)
 
     impl_score = msum(lambda w : (
         len(D) * impl.weight(w) / (msum(lambda lex: lex.weight(w), D - set([impl])) + 1)
-        ),issue_words)
+    ),issue_words)
 
 
     issue_scores = {
-            'test': test_score,
-            'impl': impl_score,
-            'prod': prod_score
-            }
+        'test': test_score,
+        'impl': impl_score,
+        'prod': prod_score
+    }
 
     return max(issue_scores, key=issue_scores.get)
 
