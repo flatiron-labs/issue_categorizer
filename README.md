@@ -4,9 +4,12 @@ Learn Issue Categorization
 ## Up and running
 
 1. Make sure you're using Python 2.7.
+
    a. An easy way to make sure you're running the right version is to use
        `virtualenv`
+
    b. First run `virtualenv ~/Virtualenvs/issue-categorizer -p python2`
+
    c. Then run `source ~/Virtualenvs/bin/activate`
 2. Install the dependencies: `pip install -r requirements.txt`
 3. Create the database: `createdb issue_categorization`
