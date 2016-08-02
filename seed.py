@@ -12,7 +12,6 @@ import string
 import sys
 import urlparse
 
-from IPython import embed
 from bs4 import BeautifulSoup
 from collections import Counter
 from nltk.corpus import stopwords

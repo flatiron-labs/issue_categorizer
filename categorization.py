@@ -17,7 +17,6 @@ import urlparse
 
 from collections import Counter
 from bs4 import BeautifulSoup
-from IPython import embed
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.porter import *
