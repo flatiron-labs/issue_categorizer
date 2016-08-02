@@ -19,7 +19,12 @@ from nltk.tokenize import word_tokenize
 
 urlparse.uses_netloc.append("postgres")
 
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
+db_url = os.environ.get(
+    "DATABASE_URL",
+    "postgres://localhost:5432/issue_categorization"
+)
+
+url = urlparse.urlparse(db_url)
 conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
