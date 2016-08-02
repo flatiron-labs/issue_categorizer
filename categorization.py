@@ -7,6 +7,7 @@ from flask import Flask, render_template
 
 import json
 import math
+import nltk
 import operator
 import os
 import psycopg2
