@@ -4,7 +4,6 @@ import json
 import math
 import mistune
 import nltk
-import operator
 import os
 import psycopg2
 import re
